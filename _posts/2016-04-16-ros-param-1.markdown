@@ -1,0 +1,171 @@
+---
+layout:     post
+title:      "ROS的参数应用以及动态调整（上）"
+subtitle:   " \"dynamic param in ROS\""
+date:       2016-04-16
+author:     "Leiym"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - ROS
+    - param
+---
+
+> 参数是应用程序重要的组成部分，在机器人应用中，参数设置的合理性显得尤为重要。参数的选择不仅要考虑算法的运算速度、效果，还要根据机器人运行的实际环境做出相应调整。ROS中提供了的参数服务器机制，用户可以将参数以yaml文件格式保存在本地，程序运行时动态载入，修改参数并不需要重新编译。而且，ROS中更为人性化的一点就是支持程序运行时动态修改参数，实时的观测参数对运行结果的影响，极大地方便了参数调试。
+
+---
+
+### 召唤乌龟转圈圈！
+
+这篇博文中，我打算用经典的示例程序turtlesim来给大家演示ROS中参数的使用方法。turtlesim是ROS中一个教学程序，运行后窗口中会出现一个萌萌哒小乌龟，并且每次都不一样。小乌龟能接收geometry_msgs/Twist类型的话题，并缓慢移动起来。
+
+我们先创建一个名为dynamic_turtle的包：
+
+`catkin_create_pkg dynamic_turtle rospy roscpp dynamic_reconfigure`
+
+然后在src文件夹中，创建一个名为circle.cpp的文件。代码如下：
+
+```C++
+
+#include <ros/ros.h>
+#include <geometry_msgs/Twist.h>
+
+int main(int argc, char **argv)
+{
+  ros::init(argc, argv, "circle");
+  ros::NodeHandle nh;
+
+  geometry_msgs::Twist T;
+  if(!nh.getParam("/speed", T.linear.x))
+	{
+		ROS_ERROR("Get Speed ERROR");
+		return 0;
+	}
+  T.angular.z = T.linear.x / 2.0;
+
+  ros::Publisher twist_pb = nh.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 100);
+
+  ros::Rate rate(1);
+  while(ros::ok())
+  {
+
+    twist_pb.publish(T);
+    ros::spinOnce();
+    rate.sleep();
+  }
+}
+```
+
+这一段简单代码的作用就是从参数服务器得到参数名为speed的参数值，并将其值赋给T.linear.x（线速度的X轴分量），然后T.linear.x的一半赋值给T.angular.z（角速度的Z轴分量），根据  `r = v / w` 可以知道乌龟的运行轨迹是绕定点做圆周运动，并且半径为2。
+
+修改一下CMakeLists.txt，以便编译产生可执行文件：
+
+```xml
+add_executable(circle_node src/circle.cpp)
+
+target_link_libraries(circle_node
+  ${catkin_LIBRARIES}
+)
+```
+
+这里可能有人疑惑了，参数服务器的speed从哪来呢，接下来我就给大家介绍两种最常用的设置参数方法。
+
+#### launch文件的param标签
+
+param标签提供了一种直白的参数设置方法，用户只需要在launch文件中添加即可。其格式如下：
+
+`<param name="parameter_name" type="double" value="10.0" />`
+
+name、type、value属性分别代表参数的名称、类型、值，类型有：str、int、double、bool，四种基础类型。
+
+在包目录下建立launch文件夹（用文件夹区分文件是一个好习惯...），然后新建circle.launch。内容如下：
+
+```
+<launch>
+	<node name="circle_node" pkg="dynamic_turtle" type="circle_node"/>
+	<param name="speed" value="4.0" />
+</launch>
+```
+
+这里设置了speed参数值为4.0，我们执行一下 `catkin_make`，然后分别运行以下两条命令(先开roscore)：
+
+`$roslaunch dynamic_turtle circle.launch`
+
+`$rosrun turtlesim turtlesim_node`
+
+可以在打开的界面中看到一个在做绕圈圈的乌龟~
+
+<img src="http://leiym.com/img/in-post/post-ros/ros-param/turtle1.jpg"/>
+
+这时运行 `rosparam get speed`,可以在终端看到其值为4.0。
+
+<img src="http://leiym.com/img/in-post/post-ros/ros-param/param.jpg"/>
+
+
+#### launch文件中的rosparam标签
+
+rosparam与param的不同在于，rosparam可以导入.yaml格式的文件内容设置参数，在需要设置大量参数时，rosparam更加实用。yaml的语法十分简单，几乎就是 *参数名：参数值* 的形式。
+
+rosparam标签的使用方法如下：
+
+`<rosparam command="load" file="$(find examle_pkg)/example.yaml" />`
+
+command属性为操作命令，load/dump表示装载和卸载yaml文件，delete表示删除参数。file属性为yaml文件的路径。（这里的 `$(find examle_pkg)` 表示的是examle_pkg包的路径，如果没有这个包就报错）。
+
+首先新建名为param的文件夹，在文件夹中新建speed.yaml文件，并写入：
+
+`speed: 4.0`
+
+然后修改launch文件为：
+
+```
+<launch>
+	<node name="circle_node" pkg="dynamic_turtle" type="circle_node"/>
+	<rosparam command="load" file="$(find dynamic_turtle)/param/speed.yaml"/>
+</launch>
+```
+
+再运行一遍launch命令和turtlesim可以看到和用param标签一样的效果。
+
+文件树结构如下：
+
+<img src="http://leiym.com/img/in-post/post-ros/ros-param/tree1.jpg"/>
+
+
+### 获取参数的两种方法
+
+##### ros::NodeHandle::getParam():
+
+```C++
+ros::NodeHandle nh;
+std::string global_name, relative_name, default_param;
+if (nh.getParam("/global_name", global_name))
+{
+  ...
+}
+
+// Default value version
+nh.param<std::string>("default_param", default_param, "default_value");
+```
+
+第一个参数为参数名，第二个参数为接收参数值的变量名。如果获得参数值失败，则返回false。nh.param()函数可以设置一个缺省值，如果获取失败，则设置为缺省值。这种方式下如果想要获得私有参数，则需要声明一个私有NodeHandle。（如：ros::NodeHandle nh(~)）
+
+##### ros::param::get()
+
+```
+std::string global_name, relative_name, default_param;
+if (ros::param::get("/global_name", global_name))
+{
+  ...
+}
+
+// Default value version
+ros::param::param<std::string>("default_param", default_param, "default_value");
+```
+
+用法和用第一种相同。如果想获得私有参数则需要在参数名前面加上"~"。（例如：ros::param::get("~private_name", param);）
+
+---
+
+### 后记
+
+这篇博文主要介绍了ROS中最常用的两种设置参数的方法，他们的共同点是不需要修改源代码，省去了重新编译的步骤。不同点是param标签适用更方便更直白，适合少量参数设置；rosparam需要配合yaml文件使用，更适合大量的并且成块的参数设置。下一篇博文我给大家介绍十分重要的动态参数设置。

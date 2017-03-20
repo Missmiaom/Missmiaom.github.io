@@ -1,0 +1,152 @@
+---
+layout:     post
+title:      "OpenCV学习系列（二）——读取，修改，保存图像"
+subtitle:   " \"OpenCV\""
+date:       2016-04-22
+author:     "Leiym"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - OpenCV
+---
+
+> 上一篇博文介绍了OpenCV里最常用的容器类Mat,这篇博文将介绍OpenCV里操作图像的一些基础操作。
+
+---
+
+### 图像操作的基本函数
+
+#### 图像读取函数 *imread*
+
+`
+CV_EXPORTS_W Mat imread( const String& filename, int flags = IMREAD_COLOR );
+`
+
+*imread* 函数的功能是按指定格式读取一幅图像。函数返回值是 *Mat* , *filename* 是图像文件的路径及名称， *flags* 是读入图像的类型，从枚举量 *ImreadModes* 之中选择：
+
+```C++
+enum ImreadModes {
+       IMREAD_UNCHANGED            = -1, //!< If set, return the loaded image as is (with alpha channel, otherwise it gets cropped).
+       IMREAD_GRAYSCALE            = 0,  //!< If set, always convert image to the single channel grayscale image.
+       IMREAD_COLOR                = 1,  //!< If set, always convert image to the 3 channel BGR color image.
+       IMREAD_ANYDEPTH             = 2,  //!< If set, return 16-bit/32-bit image when the input has the corresponding depth, otherwise convert it to 8-bit.
+       IMREAD_ANYCOLOR             = 4,  //!< If set, the image is read in any possible color format.
+       IMREAD_LOAD_GDAL            = 8,  //!< If set, use the gdal driver for loading the image.
+       IMREAD_REDUCED_GRAYSCALE_2  = 16, //!< If set, always convert image to the single channel grayscale image and the image size reduced 1/2.
+       IMREAD_REDUCED_COLOR_2      = 17, //!< If set, always convert image to the 3 channel BGR color image and the image size reduced 1/2.
+       IMREAD_REDUCED_GRAYSCALE_4  = 32, //!< If set, always convert image to the single channel grayscale image and the image size reduced 1/4.
+       IMREAD_REDUCED_COLOR_4      = 33, //!< If set, always convert image to the 3 channel BGR color image and the image size reduced 1/4.
+       IMREAD_REDUCED_GRAYSCALE_8  = 64, //!< If set, always convert image to the single channel grayscale image and the image size reduced 1/8.
+       IMREAD_REDUCED_COLOR_8      = 65  //!< If set, always convert image to the 3 channel BGR color image and the image size reduced 1/8.
+     };
+```
+
+#### 图像颜色空间的转换函数 *cvtColor*
+
+`
+CV_EXPORTS_W void cvtColor( InputArray src, OutputArray dst, int code, int dstCn = 0 );
+`
+
+*cvtColor* 函数的功能是转换一幅图像至另一颜色空间。颜色空间是颜色的编码方式，例如： *RGB* , *HSV/HLS* , *YCrCb* 等。
+
+参数 *src* 为输入图像， *dst* 为输出图像， *code* 为转换方式， *dstCn* 为输出图像的通道数，缺省为0，表示和输入图像一致。
+
+*code* 的值也为枚举常量，下面截取一部分值：
+
+```C++
+CV_BGR2GRAY    =6,
+CV_RGB2GRAY    =7,
+CV_GRAY2BGR    =8,
+CV_GRAY2RGB    =CV_GRAY2BGR,
+```
+*CV_RGB2GRAY* 表示将RGB格式转换为GRAY格式。
+
+#### 图像保存函数 *imwrite*
+
+
+`CV_EXPORTS_W bool imwrite( const String& filename, InputArray img, const std::vector<int>& params = std::vector<int>());`
+
+*imwrite* 函数的功能是保存图像至指定路径及名称。*filename* 是保存路径及名称，这里的路径必须存在，否则将无法存储。 *img* 为输出图像， *params* 是保存选项，一般缺省即可，具体选项如下：
+
+```C++
+enum ImwriteFlags {
+       IMWRITE_JPEG_QUALITY        = 1,  //!< For JPEG, it can be a quality from 0 to 100 (the higher is the better). Default value is 95.
+       IMWRITE_JPEG_PROGRESSIVE    = 2,  //!< Enable JPEG features, 0 or 1, default is False.
+       IMWRITE_JPEG_OPTIMIZE       = 3,  //!< Enable JPEG features, 0 or 1, default is False.
+       IMWRITE_JPEG_RST_INTERVAL   = 4,  //!< JPEG restart interval, 0 - 65535, default is 0 - no restart.
+       IMWRITE_JPEG_LUMA_QUALITY   = 5,  //!< Separate luma quality level, 0 - 100, default is 0 - don't use.
+       IMWRITE_JPEG_CHROMA_QUALITY = 6,  //!< Separate chroma quality level, 0 - 100, default is 0 - don't use.
+       IMWRITE_PNG_COMPRESSION     = 16, //!< For PNG, it can be the compression level from 0 to 9. A higher value means a smaller size and longer compression time. Default value is 3.
+       IMWRITE_PNG_STRATEGY        = 17, //!< One of cv::ImwritePNGFlags, default is IMWRITE_PNG_STRATEGY_DEFAULT.
+       IMWRITE_PNG_BILEVEL         = 18, //!< Binary level PNG, 0 or 1, default is 0.
+       IMWRITE_PXM_BINARY          = 32, //!< For PPM, PGM, or PBM, it can be a binary format flag, 0 or 1. Default value is 1.
+       IMWRITE_WEBP_QUALITY        = 64  //!< For WEBP, it can be a quality from 1 to 100 (the higher is the better). By default (without any parameter) and for quality above 100 the lossless compression is used.
+     };
+```
+
+**注意** ： 使用 *imwrite* 函数时需要链接 *opencv_imgcodecs* 库，在eclipse中需要在Libraries标签中添加。如图：
+
+<img src="http://leiym.com/img/in-post/post-opencv/cv_eclipse.jpg"/>
+
+### 一个简单的转换图像颜色空间的例子
+
+```C++
+#include <cv.h>
+#include <highgui.h>
+
+using namespace cv;
+
+int main( int argc, char** argv )
+{
+ if(argc != 2)
+ {
+   printf("useage: %s <imagefile>\n ", argv[0]);
+   return -1;
+ }
+ char* imageName = argv[1];
+
+ //声明Mat对象用以存储输入图像
+ Mat image;
+ //利用 imread 函数读取输入图像
+ image = imread( imageName, CV_LOAD_IMAGE_COLOR);
+
+ if( !image.data )
+ {
+   printf( " No image data \n " );
+   return -1;
+ }
+
+ //新建Mat对象用以存储输出的灰度图像
+ Mat gray_image;
+ //将 image 图像从BGR颜色空间转换为GARY颜色空间
+ cvtColor( image, gray_image, CV_BGR2GRAY );
+
+ //利用 imwrite 函数存储图像
+ imwrite( "./Images/Gray_Image.jpg", gray_image );
+
+ //创建两个命名窗口，尺寸由图像决定
+ namedWindow( imageName, CV_WINDOW_AUTOSIZE );
+ namedWindow( "Gray image", CV_WINDOW_AUTOSIZE );
+
+ //在上述两个窗口展示两幅图像
+ imshow( imageName, image );
+ imshow( "Gray image", gray_image );
+
+ waitKey(0);
+
+ return 0;
+}
+```
+
+这是一个非常简单的例子，打开图像，然后转换颜色空间，最后存储。上篇博文中提到的 *Mat* 的优点在这一过程体现出来，读写图像时，不需要手动申请内存，也无需手动释放。
+
+#### 运行结果
+
+<img src="http://leiym.com/img/in-post/post-opencv/res.jpg"/>
+
+<img src="http://leiym.com/img/in-post/post-opencv/res2.jpg"/>
+
+---
+
+### 后记
+
+这篇博文介绍了OpenCV的三个基础函数，并通过简单例子运用，其中也用到了上篇博文中讲述的 *Mat* 类。

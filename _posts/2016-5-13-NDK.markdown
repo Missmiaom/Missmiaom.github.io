@@ -1,0 +1,211 @@
+---
+layout:     post
+title:      "Android Studio编译jni模块"
+subtitle:   " \"NDK\""
+date:       2016-05-13
+author:     "Leiym"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - NDK
+---
+
+> 越来越多的硬件设备选择搭载安卓系统，而很多开源库都是基于C/C++的，当需要用到这些库时就必须使用一些特殊的方法调用。Android NDK 提供了这种方法——通过jni模块调用。这篇博文就介绍了在 ubuntu14.04 下的 Android Studio 中使用 gradle 编译 jni 模块的方法。
+
+### 背景简介
+
+**注释：** 这部分以后有时间再补，如果已经了解了 *Android NDK* ， *Android Studio* , *gradle* 也不需要看了。时间太晚，明天还有考试，我就记下最重要的配置部分了。
+
+### 新建 gradle 项目
+
+官方IDE确实很好，体验想当不错，我这种没有接触过安卓的也能很快上手。废话不多说。
+
+我们先简单地实现通过调用 C/C++ 库来输出 helloworld。
+
+先新建一个项目，改好名称一路 Next， 注意要选择一个 Empty Activity，方便以后要画界面，不过本篇博文中不会涉及。
+
+### 新建 jni 模块
+
+项目建立好了之后，再建立一个模块，有点类似于库的概念，这个模块中放的就是 jni 的代码，即我们需要调用的 C/C++库 以及一些接口作用的 java 文件。
+
+右键项目，选择 *New* -> *Module* , 选择 *Android library*， 名字自取:
+
+<img src="http://leiym.com/img/in-post/ndk/sellib.png"/>
+
+建立完成之后就有两个模块了，一个是 *app*， 一个是新建的 *lib* 。 然后右击 *lib* 模块中的 *main* 文件夹，选择 *new* -> *Folder* -> *JNIFolder* ，直接点 **Fnish** ,在 main 文件夹下新建一个 jni 文件夹。这个 jni 文件夹存放的就是我们需要用到的 C/C++ 文件。
+
+### 新建头文件
+
+我们先在 MainActivity 类中声明一个原生函数：
+
+```
+    public native String hellojni();
+```
+
+注意，关键词 *native* 表明这是一个原生函数，需要在 C/C++ 库中实现。
+
+然后，利用 javah 工具在 hellojni 模块中的 src/main/jni 文件夹中自动创立包含声明原生函数的头文件。用法如下：
+
+```
+javah -d ${TargetPath} -classpath "${SourceFile}" "${TargetClassName}"
+```
+
+其中的选项如下：
+
+```
+  -help                 输出此帮助消息并退出
+  -classpath <路径>     用于装入类的路径
+  -bootclasspath <路径> 用于装入引导类的路径
+  -d <目录>             输出目录
+  -o <文件>             输出文件（只能使用 -d 或 -o 中的一个）
+  -jni                  生成 JNI样式的头文件（默认）
+  -version              输出版本信息
+  -verbose              启用详细输出
+  -force                始终写入输出文件
+```
+
+注释： ${TargetPath} 表示生成头文件的目标路径，即 hellojni 模块的 jni 文件夹。${SourceFile} 表示上述 MainActivity 类的路径，${TargetClassName} 表示生成头文件的名称。
+
+这里，我们在 jni 文件下生成了 com_leiym_ndktest_MainActivity.h ，里面会有一个函数的声明：
+
+```
+JNIEXPORT jstring JNICALL Java_com_leiym_ndktest_MainActivity_hellojni
+  (JNIEnv *, jobject);
+```
+
+这里的函数声明是有一定规则的：
+
+1. 函数返回值类型是 jni.h 中规定的类型。不过有一定规律可以借鉴（前者为C/C++类型，后者为jni.h规定类型）：int -> jint, string -> jstring, bool -> jboolean 。
+
+2. 函数名按以下顺序声明： Java_包名_装入类名_函数名，包名中的 "." 也需要改为下划线。例如： Java_com_leiym_ndktest_MainActivity_hellojni ，就表示包名为 com.leiym.ndktest 的 MainActivity 类 的 hellojni 函数。
+
+3. 函数参数一定含有 JNIEnv* 类型和 jobject 类型的形参。如果声明原生函数时带有其他参数，则自动地依次在这两个参数之后添加，并且参数类型也符合述第2点中提到的类型。
+
+### 实现库函数
+
+在 hellojni 模块中新建 hello.cpp 文件，在这个文件中我们来实现头文件中声明的函数。
+
+```
+#include "com_leiym_ndktest_MainActivity.h"
+
+JNIEXPORT jstring JNICALL Java_com_leiym_ndktest_MainActivity_hellojni(JNIEnv *env, jobject obj)
+{
+    return env->NewStringUTF("Hello from JNI ! Compiled with ABI .");
+}
+```
+
+### 配置 NDK 环境
+
+在 hellojni 模块的 local.properties 中添加 NDK 的路径：
+
+```
+ndk.dir=/home/exbot/android/android_ndk/android-ndk-r10
+```
+
+### 编译 hellojni 库
+
+选择 *Build* -> *Make Module 'hellojni'* 只编译 hellojni 库。
+
+在 *hellojni/build/intermediates/ndk/debug* 中， *lib* 文件夹就存放的是编译好的库文件。其中不同的目标平台的动态库存放在不同的文件夹中，生成的文件都是 lib+库名+.so， 符合动态库的常规命名方法。
+
+还可以看到自动生成的 Android.mk 文件，这个文件包含了编译的规则，只不过是自动生成的并且无法直接修改，在文章最后会介绍怎么修改其内容。
+
+<img src="http://leiym.com/img/in-post/ndk/ndk编译.png"/>
+
+### 使用 hellojni 库
+
+右键 app 模块，选择 open module setting， 在 dependencies 标签中给 app 模块添加 hellojni 模块的依赖。
+
+<img src="http://leiym.com/img/in-post/ndk/adddepen.png"/>
+
+添加完成之后，需要在 MainActivity 类中加入如下代码：
+
+```
+static  
+    {  
+        System.loadLibrary("hellojni");  
+    }
+```
+
+static 代码块会最先执行，代码块里的作用就是加载库 hellojni，这样就可以使用库函数了。这里我声明一个 Textview 并让其显示 hellojni() 函数返回的字符串。
+
+```
+textview = (TextView)findViewById(R.id.tv);
+textview.setText(hellojni());
+```
+
+<img src="http://leiym.com/img/in-post/ndk/res.png"/>
+
+### 修改 Android.mk 更改编译选项
+
+我们先看一下自动生成的 Android.mk 的内容：
+
+```
+LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := hellojni
+LOCAL_LDFLAGS := -Wl,--build-id
+LOCAL_SRC_FILES := \
+	/home/exbot/android/StudioProjects/NDKtest/hellojni/src/main/jni/hellojni.cpp \
+
+LOCAL_C_INCLUDES += /home/exbot/android/StudioProjects/NDKtest/hellojni/src/main/jni
+LOCAL_C_INCLUDES += /home/exbot/android/StudioProjects/NDKtest/hellojni/src/debug/jni
+
+include $(BUILD_SHARED_LIBRARY)
+```
+
+一目了然， **LOCAL_MODULE** 指明生成的库名， **LOCAL_SRC_FILES** 指明生成库的源文件， **LOCAL_C_INCLUDES** 指明头文件路径。
+
+除此之外，我们可能还需要另外的编译规则，比如以 c99 模式编译，这时，我们就需要更改 hellojni 模块下的 build.gradle 文件。
+
+```
+apply plugin: 'com.android.library'
+
+android {
+
+    ...
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+...
+
+```
+
+在 buildTypes 标签下的 release 中添加 ndk 标签， 常用的格式如下：
+
+```
+ndk {
+    cFlags = "-std=c99"
+    moduleName "hellojni"
+    abiFilter "armeabi-v7a"
+    ldLibs "log", "jnigraphics"
+}
+```
+
+cFlags 指明的是编译选项，这里加上了 -std=c99 ,使用c99规则编译。moduleName 指明模块名。abiFilter 指明编译的目标平台，这里只有 armeabi-v7a ，则编译之后只会有一个 armeabi-v7a 的文件夹。ldLibs 指明编译需要加载的库，相当于 "-llog -ljnigraphics"。
+
+直接修改生成的 Android.mk 是行不通的，因为它是根据 build.gradle 文件自动生成的，每次编译都会先生成新的 Android.mk ，然后根据其编译成动态库。
+
+看一下编译之后在 release 文件夹下自动生成的 Android.mk :
+
+<img src="http://leiym.com/img/in-post/ndk/andmk.png"/>
+
+可以看到， Android.mk 中已经多了 **LOCAL_CFLAGS** **LOCAL_LDLIBS** 两个标签，并且都是我们想要添加的。注意，因为这里只在 build.gradle 中的 release 标签中添加了 ndk 标签，所以只会在相应的 release 文件夹中生成我们想要的 Android.mk ， debug 文件夹下的没有更改。
+
+---
+
+### 后记
+
+刚看了一天多一点，因为之前没有接触过安卓的编程，所以花了不少时间在理解项目构建上。
+
+参考网址：
+
+http://blog.csdn.net/ashqal/article/details/21869151
+
+http://stackoverflow.com/questions/20674650/how-to-configure-ndk-with-android-gradle-plugin-0-7

@@ -1,0 +1,65 @@
+---
+layout:     post
+title:      "C++ STL 之 list"
+subtitle:   " \"Standard Template Library\""
+date:       2016-07-05
+author:     "Leiym"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - C++
+    - STL
+---
+
+> STL 常用容器类 list 详解
+
+### list 概述
+
+*list* 的本质是环形双向链表，不同于 *vector* 的连续存储， *list* 通过指针来建立相连元素的逻辑关系。其迭代器并不像 *vecotr* 是普通指针。
+
+由于 *list* 的链表结构，其内存分配则简单的多，有多少用多少。
+
+### list 基本操作
+
+#### list 的节点（node）
+
+下面是 *list* 的节点的声明代码，可以看出其是一个双向链表。
+
+```
+temple <class T>
+struct __list_node {
+  typedef void* void_pointer;
+  void_pointer prev;
+  void_pointer next;
+  T data;
+}
+```
+
+#### list 的迭代器以及数据结构
+
+由于 *list* 的逻辑链接关系，其迭代器并不能是普通指针。其迭代器类需要重载 *++* ,  *--* 操作来达到递增，递减的目的。方法其实是简单的赋于 *next* ， *prev* 的值。这些数据结构课上讲的很多，不再赘述。
+
+*list* 的迭代器有个重要的性质： **插入操作（insert）和接合操作（splice）都不会造成原迭代器的失效** ,而 *vector* 的迭代器不具备这个性质。因为当 *vector* 增加元素时可能超过了原先申请的内存大小，而需要重新申请内存，指向原内存的迭代器自然失效。 *list* 只要迭代器指向的元素不被删除，迭代器就不会失效。
+
+*list* 是一个环形双向链表，所以只需要一个指针就可以表现整个列表。注意， **STL区间要求“前闭后开”，即[first, last)。** ，所以让其尾端指向空节点可以很好的符合这个规则。
+
+#### list 的方法
+
+```
+void push_front(const T& x);              //插入一个节点做头节点
+void push_back(const T& x);               //插入一个节点做尾节点
+iterator erase(iterator position);        //移除迭代器所指节点，并返回下一个节点的迭代器
+void pop_front();                         //移除头节点
+void pop_back();                          //移除尾节点
+void clear();                             //移除所有节点，返回初始状态
+void remove(const T& value);              //移除值为value的节点
+void unique();                            //移除连续并且元素相同的节点，只剩第一个
+void splice(...);                         //结合，多个重载
+void reverse();                           //将当前链表反向
+void sort();                              //排序
+```
+
+---
+
+### 后记
+
+*list* 操作比 *vector* 更加丰富，目前就探索这些东西把，后续会补上相关方法的时间复杂度，挖坑。

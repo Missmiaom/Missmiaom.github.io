@@ -1,0 +1,87 @@
+---
+layout:     post
+title:      "ROS IDE之Qt配置方法"
+subtitle:   " \"Qt setting for ROS\""
+date:       2016-04-13
+author:     "Leiym"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - ROS
+    - Qt
+---
+
+> 在上一篇博文中，我给大家介绍了一种开发ROS工程的强大IDE——eclipse的配置方法。这篇博文，我继续给大家介绍另外一种更为轻量级更便捷的IDE——Qt的配置方法。
+
+---
+
+### Qt的安装
+
+#### 下载安装程序
+
+Qt，全称Qt Creator。exbot的ROS学习镜像集成安装了Qt，安装的是该镜像直接可以跳到配置阶段。如果镜像没有安装Qt，则需要按照以下步骤进行。
+
+从[Qt下载地址](http://www.qt.io/download-open-source/#section-3)下载Qt的**离线**安装程序。如果是32位系统，则需要下载在线安装程序。
+
+下载完成之后直接双击.run文件，进入图形安装界面，默认安装在/home/<user>/Qt5.2.0下（user为你的用户名），你也可以点击  *Browse..*  自定义安装路径。
+
+<img src="http://leiym.com/img/in-post/post-ros/Qt-install.jpg"/>
+
+按照指示一路Next即可完成安装。安装完成后点左上角的搜索，输入“ qt”如果看到 Qt Creator 图标则安装成功。
+
+<img src="http://leiym.com/img/in-post/post-ros/Qt.jpg"/>
+
+#### 设置Qt快捷方式
+
+这一步将要修改 Qt Creator 快捷方式，使从快捷方式启动 Qt Creator 的同时加载ROS环境变量。步骤和设置eclipse快捷方式相似，打开 terminal，输入下面的命令：
+
+`$ gedit ~/.local/share/applications/DigiaQtOpenSource-qtcreator.desktop`
+
+在打开的文本文件中，修改 *Exec* 那一行，在中间添加 *bash -i -c*。即修改后的那一行为：
+
+`Exec=bash -i -c
+/home/<user>/Qt5.2.0/Tools/QtCreator/bin/qtcreator`
+
+**注意**： *user* 是你的用户名。
+
+修改完成后，保存并退出。这样添加是为了在通过快捷方式启动 Qt Creator 的同时加载 ROS 环境变量（ROS 环境变量加载脚本配置在 ~/.bashrc 文件内）。
+
+**注意**：如果打开的文件是空，则表示没有找到DigiaQtOpenSource-qtcreator.desktop文件，可能是安装路径不在本地用户目录下，或者版本不同导致的文件名不一致。可以在 *~/.local/share/applications/* 和 */usr/share/applications/* 两个路径下用`$ls *qt* `命令找找看。
+
+### 使用Qt开发ROS工程
+
+这里我用 wiki 上的 TF 教程，创建一个 tf 的 broadcaster 为例，讲解如何用QT方便地建立工程。
+
+创建工作空间和创建包的过程略过，我们在 *learnin_tf/src* 文件夹中创建一个 *turtle_tf_broadcaster.cpp* ，先什么都不用写，我们先改一下 *CmakeLists.txt* 。
+
+在 *CmakeLists.txt* 中添加下面两行：
+
+`add_executable(turtle_tf_broadcaster src/turtle_tf_broadcaster.cpp)`
+
+`add_executable(turtle_tf_broadcaster src/turtle_tf_listener.cpp)`
+
+`target_link_libraries(turtle_tf_broadcaster ${catkin_LIBRARIES})`
+
+`target_link_libraries(turtle_tf_listener ${catkin_LIBRARIES})`
+
+然 后 我 们 打 开 QT ， 选 择 Open Project ， 然 后 选 择 *learning_tf/src* 的 *CMakeLists.txt*，点击打开。
+
+<img src="http://leiym.com/img/in-post/post-ros/Qt-project.jpg"/>
+
+下一步，选择构建路径，注意构建路径选择工作空间的 *build* 文件夹，我这里是 *catkin_ws/build* 。参数需要填写 *-DCMAKE_BUILD_TYPE=Debug* ，否则无法调试。设置好了之后点击 *执行Camke* ，没有错误的话，点击完成即可。
+
+<img src="http://leiym.com/img/in-post/post-ros/Qt-cmake.jpg"/>
+
+打开项目之后，可以在左侧项目树中看到 *src* 文件夹和两个cpp文件。当然，目前这两个cpp文件都是空文件，现在我们就可以利用Qt的API补全功能来进行代码的编写了。
+
+<img src="http://leiym.com/img/in-post/post-ros/Qt-pj.jpg"/>
+
+### 调试
+
+在终端打开 *roscore* ，然后按F5开始调试，可以按 F9设置断点，按 F10单步
+执行，F11进入函数。总之调试非常简单，不需要额外设置环境变量。
+
+---
+
+### 后记
+
+工欲善其事，必先利其器。如果能够熟练地使用两种IDE其中的一种，对开发还是很有帮助的。
