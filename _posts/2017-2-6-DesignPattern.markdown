@@ -5,6 +5,7 @@ subtitle:   " \"Design Pattern\""
 date:       2017-2-6
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - Design Pattern
     - 读书笔记
