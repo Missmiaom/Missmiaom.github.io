@@ -3,8 +3,8 @@ title: Leiym Blog
 SEOTitle: 雷一鸣的博客 | Leiym Blog
 header-img: img/home-bg.jpg
 email: leiyiming6@gmail.com
-description: "与Robot一起成长的foolish Geek | 雷一鸣，robot Lover & C++Software Engineer | 这里是雷一鸣的个人博客，与你一起发现更大的世界。"
-keyword: "雷一鸣, Leiym雷一鸣, Leiym"
+description: "与Robot一起成长的foolish Geek | 雷一鸣，robot Lover & C++Software Engineer | 这里是雷一鸣的个人博客，与你一起发现更大的世界�?
+keyword: "雷一�? Leiym雷一�? Leiym"
 url: "http://Leiym.com"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
@@ -60,7 +60,7 @@ duoshuo_share: true                     # set to false if you want to use Commen
 
 # Analytics settings
 # Baidu Analytics
-ba_track_id: 40f36defbf92a93a605c112dab344246
+#ba_track_id: 40f36defbf92a93a605c112dab344246
 # Google Analytics
 #ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
 #ga_domain: huangxuan.me
@@ -90,7 +90,7 @@ friends: [
         title: "Coooooooooder_Y",
         href: "http://yangruihan.com/"
     },{
-        title: "天镶的博客",
+        title: "天镶的博�?,
         href: "http://lingyu.wang/"
     },{
         title: "Luke的自留地",
@@ -102,7 +102,7 @@ friends: [
         title: "SmdCn's Blog",
         href: "http://blog.smdcn.net"
     },{
-        title: "解旻的博客",
+        title: "解旻的博�?,
         href: "http://xieminis.me/"
     },{
         title: "DHong Say",
