@@ -5,6 +5,7 @@ subtitle:   " \"the nodelet of ROS\""
 date:       2016-08-20
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - ROS
 ---

@@ -5,40 +5,11 @@ subtitle:   " \"opencv\""
 date:       2016-09-19
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - opencv
     - vslam
 ---
-
-- [特征点检测和图像匹配](#特征点检测和图像匹配)
-	- [特征检测子（关键点）与描述子](#特征检测子关键点与描述子)
-	- [特征检测子公用接口](#特征检测子公用接口)
-		- [class KeyPoint](#class-keypoint)
-		- [FeatureDetector](#featuredetector)
-	- [特征描述子提取公用接口](#特征描述子提取公用接口)
-		- [DescriptorExtractor](#descriptorextractor)
-	- [特征描述子匹配公用接口](#特征描述子匹配公用接口)
-		- [class DMatch](#class-dmatch)
-		- [DescriptorMatcher](#descriptormatcher)
-			- [DescriptorMatcher::add](#descriptormatcheradd)
-			- [DescriptorMatcher::getTrainDescriptors](#descriptormatchergettraindescriptors)
-			- [DescriptorMatcher::clear](#descriptormatcherclear)
-			- [DescriptorMatcher::empty](#descriptormatcherempty)
-			- [DescriptorMatcher::isMaskSupported](#descriptormatcherismasksupported)
-			- [DescriptorMatcher::train](#descriptormatchertrain)
-			- [DescriptorMatcher::match](#descriptormatchermatch)
-			- [DescriptorMatcher::knnMatch](#descriptormatcherknnmatch)
-			- [DescriptorMatcher::radiusMatch](#descriptormatcherradiusmatch)
-		- [BruteForceMatcher](#bruteforcematcher)
-		- [FlannBasedMatcher](#flannbasedmatcher)
-	- [图像特征关键点及关键点匹配绘制函数](#图像特征关键点及关键点匹配绘制函数)
-		- [drawMatches](#drawmatches)
-		- [drawKeypoints](#drawkeypoints)
-- [RANSAC](#ransac)
-	- [findFundamentalMat](#findfundamentalmat)
-- [PnP](#pnp)
-	- [solvePnPRansac](#solvepnpransac)
-
 
 ### 特征点检测和图像匹配
 

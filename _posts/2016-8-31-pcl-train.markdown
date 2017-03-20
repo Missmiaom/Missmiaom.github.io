@@ -5,6 +5,7 @@ subtitle:   " \"PCL\""
 date:       2016-08-31
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - PCL
     - vslam

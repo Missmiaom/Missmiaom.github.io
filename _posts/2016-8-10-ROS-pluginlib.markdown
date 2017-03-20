@@ -5,6 +5,7 @@ subtitle:   " \"the pluginlib of ROS\""
 date:       2016-08-10
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - ROS
 ---

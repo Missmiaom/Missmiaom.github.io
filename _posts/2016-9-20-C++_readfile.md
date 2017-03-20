@@ -5,23 +5,12 @@ subtitle:   " \"C++\""
 date:       2016-09-20
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - C++
 ---
 
 > 简单记录一下常用的 C++ 按顺序读取文件夹中所有文件名的方法
-
-- [代码](#代码)
-- [解释](#解释)
-  - [dirent.h](#direnth)
-  - [DIR](#dir)
-  - [struct dirent](#struct-dirent)
-  - [opendir](#opendir)
-  - [closedir](#closedir)
-  - [readdir](#readdir)
-  - [rewinddir](#rewinddir)
-  - [seekdir](#seekdir)
-  - [telldir](#telldir)
 
 
 ### 代码

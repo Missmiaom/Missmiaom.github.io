@@ -5,31 +5,12 @@ subtitle:   " \"C++\""
 date:       2016-09-21
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - C++
 ---
 
 > 简单记录 C++ 读取文件以及字符串转换的一些操作
-
-
-- [读取文件](#读取文件)
-- [字符串类型转换](#字符串类型转换)
-	- [字符串数字之间的转换](#字符串数字之间的转换)
-		- [string --> char *](#string-char-)
-		- [char * -->string](#char-string)
-		- [char * -->CString](#char-cstring)
-		- [CString --> char *](#cstring-char-)
-		- [string --> CString](#string-cstring)
-		- [CString --> string](#cstring-string)
-		- [double/float->CString](#doublefloat-cstring)
-		- [CString->double](#cstring-double)
-		- [string->double](#string-double)
-	- [数字转字符串：使用sprintf()函数](#数字转字符串使用sprintf函数)
-	- [字符串转数字：使用sscanf()函数](#字符串转数字使用sscanf函数)
-	- [使用stringstream类](#使用stringstream类)
-		- [ostringstream](#ostringstream)
-		- [istringstream](#istringstream)
-
 
 ### 读取文件
 

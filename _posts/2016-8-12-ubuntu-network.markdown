@@ -5,6 +5,7 @@ subtitle:   " \"ubuntu\""
 date:       2016-08-12
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - ROS
 ---

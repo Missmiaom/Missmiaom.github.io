@@ -5,6 +5,7 @@ subtitle:   " \"Tank\""
 date:       2016-05-09
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - Tank
     - ROS

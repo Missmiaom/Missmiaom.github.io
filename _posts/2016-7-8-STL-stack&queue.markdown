@@ -5,6 +5,7 @@ subtitle:   " \"Standard Template Library\""
 date:       2016-07-08
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - C++
     - STL

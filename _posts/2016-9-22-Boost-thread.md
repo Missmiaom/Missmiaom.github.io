@@ -5,6 +5,7 @@ subtitle:   " \"C++\""
 date:       2016-09-22
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - C++
     - Boost

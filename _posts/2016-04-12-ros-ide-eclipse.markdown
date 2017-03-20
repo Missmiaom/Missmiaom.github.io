@@ -5,6 +5,7 @@ subtitle:   " \"eclipse setting for ROS\""
 date:       2016-04-12
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - ROS
     - eclipse

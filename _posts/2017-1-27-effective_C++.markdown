@@ -5,6 +5,7 @@ subtitle:   " \"bat\""
 date:       2016-12-19
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
     - C++
     - 读书笔记

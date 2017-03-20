@@ -11,34 +11,6 @@ tags:
     - 读书笔记
 ---
 
-- [创建型模式](#创建型模式)
-	- [Singleton Pattern](#singleton-pattern)
-	- [Simple Factory Pattern](#simple-factory-pattern)
-	- [Factory Method Pattern](#factory-method-pattern)
-	- [Prototype Pattern](#prototype-pattern)
-	- [Builder Pattern](#builder-pattern)
-	- [Abstract Factory Pattern](#abstract-factory-pattern)
-- [结构型模式](#结构型模式)
-	- [Adapter Pattern](#adapter-pattern)
-	- [Bridge Pattern](#bridge-pattern)
-	- [Decorator Pattern](#decorator-pattern)
-	- [Composite Pattern](#composite-pattern)
-	- [Flyweight Pattern](#flyweight-pattern)
-	- [Facade Pattern](#facade-pattern)
-	- [Proxy Pattern](#proxy-pattern)
-- [行为型模式](#行为型模式)
-	- [State Pattern](#state-pattern)
-	- [Observer Pattern](#observer-pattern)
-	- [Mediator Pattern](#mediator-pattern)
-	- [Chain of Responsibility Pattern](#chain-of-responsibility-pattern)
-	- [Strategy Pattern](#strategy-pattern)
-	- [Iterator Pattern](#iterator-pattern)
-	- [Template Method](#template-method)
-	- [Visitor Pattern](#visitor-pattern)
-	- [Command Pattern](#command-pattern)
-	- [Memento Pattern](#memento-pattern)
-	- [Interpreter Pattern](#interpreter-pattern)
-
 ### 创建型模式
 
 #### Singleton Pattern
