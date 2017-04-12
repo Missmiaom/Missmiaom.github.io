@@ -2,7 +2,7 @@
 layout:     post
 title:      "Qt5+VS2015开发之基础"
 subtitle:   " \"Design Pattern\""
-date:       2017-2-6
+date:       2017-4-12
 author:     "Leiym"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
@@ -42,7 +42,7 @@ tags:
 
 如果使用 Qt Creator 开发，在 Qt Designer 中直接可以右键点击控件，然后选择 *转到槽* 来添加槽函数。可是用 VS2015 并不能这么方便地自动创建，而是需要手动去创建槽函数。
 
-例如，目前 QtGuiTest 中需要创建一个槽函数来接收对象名为 pushButton 的按钮的 clicked() 信号，就需要按照以下步骤来做：
+例如，目前 QtGuiTest 中需要创建一个槽函数来接收对象名为 pushButton 的按钮的 clicked() 发出的信号，就需要按照以下步骤来做：
 
 1. 在 QtGuiTest 类的头文件 QtGuiTest.h 中声明一个私有槽函数：
 
@@ -60,7 +60,7 @@ void QtGuiTest::Btn_Clicked()
 }
 ```
 
-3. 然后在 Qt Designer 中，为 pushButton 的 clicked() 信号添加槽函数：
+3. 然后在 Qt Designer 中，为 pushButton 的 clicked() 发出的信号添加槽函数：
 
 <img src="http://leiym.com/img/in-post/post-qt/4.png"/>
 
