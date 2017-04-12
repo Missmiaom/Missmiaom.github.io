@@ -13,13 +13,13 @@ tags:
 
 > STL库中常用的容器类 vector 详解，包括基础用法以及内存空间的操作。
 
-## vector 概述
+### vector 概述
 
 *vector* 的数据安排以及操作方式与数组类似，唯一的区别在与数组是静态空间，一旦声明之后就无法自动改变空间大小，需要手动扩充空间大小。而 *vector* 是动态空间，随着元素的加入，其内部机制会自行扩充空间以容纳新元素。
 
-## vector 基本操作
+### vector 基本操作
 
-### vector 迭代器
+#### vector 迭代器
 
 其迭代器为普通指针。
 
@@ -37,7 +37,7 @@ protected:
 
 其中，*end_of_storage* 为 *vector* 的可用空间尾部，而不一定指向最后一个元素的下一个位置。详解见后续内存操作中。
 
-### vector 方法
+#### vector 方法
 
 ```
 iterator begin();        //返回使用空间头的迭代器
@@ -48,27 +48,34 @@ bool empty();            //返回是否为空
 reference front();       //返回头元素的引用
 reference back();        //返回尾元素的引用
 
-void push_back();        //将元素压入末尾
+void push_back(const T& x);  
+                        //将元素压入末尾
+                        
 void pop_back();         //将尾端向前移动一个单位，放弃最后一个元素
+
 iterator insert( iterator loc, const TYPE &val );
                          //在指定位置前插入元素val
+
 void insert( iterator loc, size_type num, const TYPE &val );
                          //在指定位置前插入num个元素val
+
 void insert( iterator loc, input_iterator start, input_iterator end );
                          //在指定位置前插入[start,end]区间所有元素
 
 iterator erase(iterator pos);
-                         //清楚某位上的元素
+                         //清除pos上的元素，返回原vector中pos指向的下一个元素的迭代器
+
 void resize(size_type new_size);
                          //重新分配大小
+
 void clear();            //清空所有元素
 ```
 
-## vector 的内存管理
+### vector 的内存管理
 
 *vector* 的使用空间大小与占用空间大小不一样，当往其尾部添加数据时，如果空间不足，它并不只会申请要添加的数据占用的空间大小，而是申请已有空间大小的二倍。所以占用空间总是大于等于已使用空间大小的。
 
-### vector 内存申请规则
+#### vector 内存申请规则
 
 利用一段代码来解释其内存空间申请规则，为了方便观察，我将运行结果写在了每行代码之后，下同：
 
@@ -102,7 +109,7 @@ int main()
 
 可以很直观地得到以下结果： **当其初始化时，容量等于大小。当加入新元素之后的大小小于容量时，无需改变空间大小。当加入新元素之后的大小大于容量时，容量会扩大到原容量的两倍。** 这样做避免了频繁地申请内存，移动数据，释放原内存。值得注意的是： **当 vector 的容量发生变化时，并不是在原有的空间接上新的空间，而是申请另外一块两倍大小的空间，所以指向原 vector 的迭代器会全部失效。**
 
-### vector 内存空间的释放
+#### vector 内存空间的释放
 
 继续来看一段代码：
 
@@ -141,6 +148,6 @@ int main()
 
 ---
 
-## 后记
+### 后记
 
 这篇博文记录了STL库的最常用的容器 vector 的用法和内存释放方法。

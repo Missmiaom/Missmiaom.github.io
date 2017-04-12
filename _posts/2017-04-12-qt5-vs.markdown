@@ -1,0 +1,83 @@
+---
+layout:     post
+title:      "Qt5+VS2015开发之基础"
+subtitle:   " \"Design Pattern\""
+date:       2017-2-6
+author:     "Leiym"
+header-img: "img/post-bg-2015.jpg"
+catalog: true
+tags:
+    - Qt
+---
+
+> 本文主要介绍使用VS2015开发QT5项目的方法，以及创建简单的窗体和信号槽。
+
+### VS2015环境搭建
+
+首先，VS2015必须选择安装 C++ 有关开发选项，然后使用 Qt 官方提供的VS插件 **qt-vs-addin-1.2.4-opensource.exe** 配置开发环境。[Qt5 for VS插件下载地址](http://mirrors.ustc.edu.cn/qtproject/archive/vsaddin/qt-vs-addin-1.2.4-opensource.exe)
+
+插件安装步骤一路 Next 即可，安装后可以在新建项目中看到有关 Qt 的选项了。
+
+<img src="http://leiym.com/img/in-post/post-qt/1.png"/>
+
+### 相比 Qt Creator 的区别
+
+#### 创建一般窗体
+
+创建 Qt GUI Application 时会自动创建一个主窗体，这个主窗体有跟界面设计有关的 '.ui' 文件，具体的窗体类 '.h' 和 '.cpp' 文件。但是如果要添加新的窗体就不能直接添加一个 '.ui' 文件，而是要添加一个 Qt 类。具体做法如下：
+
+1. 右键点击项目 -> 添加 -> Add Qt Class...
+
+2. 在弹出的对话框中选择 Qt GUI Class
+
+<img src="http://leiym.com/img/in-post/post-qt/2.png"/>
+
+3. 点击 Next， 在填写类名的对话框中将 *Base CLass* 改为 *QDialog*，然后选择 finish 。
+
+<img src="http://leiym.com/img/in-post/post-qt/3.png"/>
+
+按照上述做法就可以添加一个完整的窗体，在项目中看到对应名称的 '.ui' 、 '.h' 和 '.cpp' 文件。
+
+#### 创建控件槽
+
+如果使用 Qt Creator 开发，在 Qt Designer 中直接可以右键点击控件，然后选择 *转到槽* 来添加槽函数。可是用 VS2015 并不能这么方便地自动创建，而是需要手动去创建槽函数。
+
+例如，目前 QtGuiTest 中需要创建一个槽函数来接收对象名为 pushButton 的按钮的 clicked() 信号，就需要按照以下步骤来做：
+
+1. 在 QtGuiTest 类的头文件 QtGuiTest.h 中声明一个私有槽函数：
+
+```
+private slots:
+	void Btn_Clicked();
+```
+
+2. 在 QtGuiTest 类的实现文件 QtGuiTest.cpp 中实现槽函数：
+
+```
+void QtGuiTest::Btn_Clicked()
+{
+	//do something
+}
+```
+
+3. 然后在 Qt Designer 中，为 pushButton 的 clicked() 信号添加槽函数：
+
+<img src="http://leiym.com/img/in-post/post-qt/4.png"/>
+
+4. 从上图可以看到，右侧没有一个函数可以与之对应，所以点击下方编辑，添加刚创建的槽函数 Btn_Clicked()
+
+<img src="http://leiym.com/img/in-post/post-qt/5.png"/>
+
+5. 然后在刚刚的界面就可以看到右侧新加的槽函数，与之对应即可
+
+<img src="http://leiym.com/img/in-post/post-qt/6.png"/>
+
+6. 最终结果：
+
+<img src="http://leiym.com/img/in-post/post-qt/7.png"/>
+
+---
+
+### 后记
+
+主要记录环境配置和基础开发的不同之处
