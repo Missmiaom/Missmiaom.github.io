@@ -18,171 +18,162 @@ tags:
 
 ```
 #include <fstream>  
-ofstream         //文件写操作 内存写入存储设备   
-ifstream         //文件读操作，存储设备读区到内存中  
-fstream          //读写操作，对打开的文件可进行读写操作
+ofstream         //文件写入流，内存写入存储设备   
+ifstream         //文件读入流，存储设备读区到内存中  
+fstream          //文件读写流，对打开的文件可进行读写操作
 ```
-#### open
+
+他们和其他流类之间的派生关系如下：
+
+<img src="http://leiym.com/img/in-post/post-c++/filestream/1.png"/>
+
+
+#### 打开、关闭文件
+
+打开文件可以使用 `open` 函数，也可以直接调用构造函数，两种方法的主要参数相同。
 
 `void open ( const char * filename, ios_base::openmode mode = ios_base::in | ios_base::out );`
 
 * *filename* ：操作文件名。
-* *mode* ：打开文件方式，有如下几种。
+* *mode* ：打开文件方式，有如下几种，并且能够以“或”运算 `|` 的方式进行组合使用
 
 |选项|意义|
 |:---:|:---:|
-|ios::in|为输入(读)而打开文件|
-|ios::out|为输出(写)而打开文件|
-|ios::ate|初始位置：文件尾|
-|ios::app|所有输出附加在文件末尾|
-|ios::trunc|如果文件已存在则先删除该文件|
-|ios::binary|二进制方式|
+|ios_base::in|为输入(读)而打开文件|
+|ios_base::out|为输出(写)而打开文件|
+|ios_base::ate|初始位置：文件尾|
+|ios_base::app|所有输出附加在文件末尾|
+|ios_base::trunc|如果文件已存在则清楚该文件内容|
+|ios::nocreate|文件不存在时产生错误，常和in或app联合使用|
+|ios::noreplace|文件存在时产生错误，常和out联合使用|
+|ios_base::binary|以二进制格式打开（默认为文本格式）|
 
-这些方式是能够以“或”运算（“|”）的方式进行组合使用的。
+检测文件是否正确打开可以使用 `is_open()` 函数：
 
-####
+```
+if(file.is_open())
+{
+	...
+}
+```
 
-### 字符串类型转换
+关闭文件可以使用 `close()` 函数，例如： `file.close();` 
 
-**转载，原文：http://www.cnblogs.com/luxiaoxun/**
+#### 文件指针
 
-#### 字符串数字之间的转换
+文件读写过程中，有一个流指针来控制读写的位置，这个指针就是文件指针。
 
-##### string --> char *
+参照位置有以下三种：
+
+|指针|意义|
+|:---:|:---:|
+|ios_base::beg|beginning of the stream|
+|ios_base::cur|current position in the stream|
+|ios_base::end|nd of the stream|
+
+可以使用以下函数来操作文件指针：
+
+```
+//输入流（istream）操作
+seekg(绝对位置);　　　　　　//绝对移动，　　　　
+seekg(相对位置,参照位置);　 //相对移动  
+tellg();　　　　　　　　　　//返回当前指针位置  
+
+//输出流（ostream）操作
+seekp(绝对位置);　　　　　　//绝对移动　　　　
+seekp(相对位置,参照位置);　 //相对移动　　　  
+tellp();　　　　　　　　　　//返回当前指针位置  
+```
+
+下面是通过移动指针来获得文件长度的一个例子：
+
+```
+std::ifstream is ("test.txt", std::ifstream::binary);
+is.seekg (0, is.end);     //移动到文件末尾（移动到末尾位置的0偏移处 ）
+int length = is.tellg();  //得到文件长度
+is.seekg (0, is.beg);     //回到文件开头
+```
+
+#### 读写操作
+
+`ifstream` 和 `ofstream` 可以通过 `<<` 或者 `>>` 来进行读写操作，通过这种方式读写的时候都会以空格或者回车为分界读写文件。例如：
+
+```
+double d;  
+char c;  
+char s[20];  
+out_file >> i >> d >> c;　
+```
+
+`ifstream` 可以通过 `get()` 成员函数来读取一个字符，通过 `get(char *,int n,char delim)` 来读取多个字符，也可以通过 `getline(char*)` 来直接读取一行的内容。例如：
+
+```
+char c;
+while ((c=fin.get()) != EOF)
+	cout << c;
+
+char a[80];
+while(fin.get(a, 80, '\0')!=NULL) //以 '\0' 为终止 
+	cout << a;
+```
+
+`ofstream` 可以通过 `put(char c)` 成员函数来写入一个字符，也可以通过 ` write (const char* s, int n)` 写入多个字符。
+
+### 字符串、数字类型转换
+
+#### string --> char *
 
 ```
 string str("OK");
 char * p = str.c_str();
 ```
 
-##### char * -->string
+#### char * -->string
 
 ```
 char *p = "OK";
 string str(p);
 ```
-##### char * -->CString
+
+#### string --> int, long, double
 
 ```
-char *p ="OK";
-CString m_Str(p);
-
-//OR
-
-CString m_Str;
-m_Str.Format("%s",p);
-```
-
-##### CString --> char *
-
-```
-CString str("OK");
-char * p = str.GetBuffer(0);
-...
-str.ReleaseBuffer();
-```
-
-##### string --> CString
-
-```
-CString.Format("%s", string.c_str());  
-```
-
-##### CString --> string
-
-```
-string s(CString.GetBuffer(0));  
-//GetBuffer()后一定要ReleaseBuffer()，否则就没有释放缓冲区所占的空间，CString对象不能动态增长了。
-```
-
-##### double/float->CString
-
-```
-double data;
-CString.Format("%.2f",data); //保留2位小数
-```
-
-##### CString->double
-
-```
-CString s="123.12";
-double   d=atof(s);   
-```
-
-##### string->double
-
-```
+int a = atoi(s.c_str());
+long a = atol(s.c_str());
 double d=atof(s.c_str());
 ```
 
-#### 数字转字符串：使用sprintf()函数
+#### int, float --> string
 
 ```
-char str[10];
-int a=1234321;
-sprintf(str,"%d",a);
-
-//--------------------
-
-char str[10];
-double a=123.321;
-sprintf(str,"%.3lf",a);
-
-//--------------------
-
-char str[10];
-int a=175;
-sprintf(str,"%x",a);//10进制转换成16进制，如果输出大写的字母是sprintf(str,"%X",a)
-
-//--------------------
-
-char *itoa(int value, char* string, int radix);
-//同样也可以将数字转字符串，不过itoa()这个函数是平台相关的（不是标准里的），故在这里不推荐使用这个函数。
+string to_string (int val);
+string to_string (long val);
+string to_string (long long val);
+string to_string (unsigned val);
+string to_string (unsigned long val);
+string to_string (unsigned long long val);
+string to_string (float val);
+string to_string (double val);
+string to_string (long double val);
 ```
 
-#### 字符串转数字：使用sscanf()函数
+#### 转换字符串表示的不同进制数字
 
 ```
-char str[]="1234321";
-int a;
-sscanf(str,"%d",&a);
-
-//----------------
-
-char str[]="123.321";
-double a;
-sscanf(str,"%lf",&a);
-
-//----------------
-
-char str[]="AF";
-int a;
-sscanf(str,"%x",&a); //16进制转换成10进制
-
-//另外也可以使用atoi(),atol(),atof().
+long int strtol(const char *nptr, char **endptr, int base)
 ```
 
-#### 使用stringstream类
+* nptr ：输入字符串
 
-##### ostringstream
+* endptr ：不为 `NULL` 时，会将不符合转换条件的字符串存入其中。
 
-```
-//用ostringstream对象写一个字符串，类似于sprintf()
-ostringstream s1;
-int i = 22;
-s1 << "Hello " << i << endl;
-string s2 = s1.str();
-cout << s2;
-```
-
-##### istringstream
+* base : 范围从2至36，或0，代表采用的进制方式，当为 0 时会使用十进制转换，但遇到 "0x" 前置字符时会以十六进制转换。
 
 ```
-//用istringstream对象读一个字符串，类似于sscanf()
-istringstream stream1;
-string string1 = "25";
-stream1.str(string1);
-int i;
-stream1 >> i;
-cout << i << endl;  // displays 25
+char a[] = "100";
+char b[] = "100";
+char c[] = "ffff";
+printf("a = %d\n", strtol(a, NULL, 10));   //以十进制转换a，结果100
+printf("b = %d\n", strtol(b, NULL, 2));    //以二进制转换b，结果4
+printf("c = %d\n", strtol(c, NULL, 16));   //以十六进制转换c，结果65535
 ```
