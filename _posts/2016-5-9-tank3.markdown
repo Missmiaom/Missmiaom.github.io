@@ -35,19 +35,19 @@ geometry_msgs/Vector angular
   float64 z
 ```
 
-*linear* 表示线速度， *angular* 表示角速度。我们需要接收 /cmd_vel 话题，并将数据转换为左右轮速。这里我使用的是轨迹推演算法，具体推导请看 [princeton courses](https://www.cs.princeton.edu/courses/archive/fall11/cos495/COS495-Lecture5-Odometry.pdf)。
+*linear* 表示线速度， *angular* 表示角速度。我们需要接收 /cmd_vel 话题，并将数据转换为左右轮速。这里我使用的是轨迹推演算法，具体推导请看 [princeton courses](httpss://www.cs.princeton.edu/courses/archive/fall11/cos495/COS495-Lecture5-Odometry.pdf)。
 
 ##### 设置轮速
 
 由线速度和角速度推导出差速轮轮速的公式如下：
 
-<img src="http://leiyiming.com/img/in-post/post-tank/轨迹推演.gif"/>
+<img src="https://leiyiming.com/img/in-post/post-tank/轨迹推演.gif"/>
 
 这里的 *Vl* ， *Vr* 为计算得到的左右轮速， *l* 为轮轴距， *V* 为 X 轴线速度， *w* 为 Z 轴角速度。
 
 **注意**：ROS中的坐标系是右手坐标系，简单地说就是以机器人正前方为 *X* 轴正向，正左方为 *Y* 轴正向，正上方为 *Z* 轴正向。右手法则中四指的方向为旋转正向，即逆时针方向。如下图：
 
-<img src="http://leiyiming.com/img/in-post/post-tank/右手法则.png"/>
+<img src="https://leiyiming.com/img/in-post/post-tank/右手法则.png"/>
 
 OK，了解完这些，我们就可以开始了动手了。
 
@@ -96,7 +96,7 @@ void subscribeVelocityCommand(const geometry_msgs::Twist& msg)
 
 公式如下：
 
-<img src="http://leiyiming.com/img/in-post/post-tank/轨迹推演逆.gif"/>
+<img src="https://leiyiming.com/img/in-post/post-tank/轨迹推演逆.gif"/>
 
 代码：
 
@@ -209,7 +209,7 @@ private:
 };
 ```
 
-这里我整个功能封装为一个 Odom 类，主要参考 roswiki 的 [发布Odometry教程](http://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom)， vel_sub 是接收 cmd_vel_feedback 的接受者，在其回调函数 feedbackCB 中计算出 odometry 信息，并发布出去。**注意**，这里还需要广播一个 tf 消息，用以实时更新 *base_link* 与 *odom* 坐标系之间的转换关系。
+这里我整个功能封装为一个 Odom 类，主要参考 roswiki 的 [发布Odometry教程](https://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom)， vel_sub 是接收 cmd_vel_feedback 的接受者，在其回调函数 feedbackCB 中计算出 odometry 信息，并发布出去。**注意**，这里还需要广播一个 tf 消息，用以实时更新 *base_link* 与 *odom* 坐标系之间的转换关系。
 
 ---
 

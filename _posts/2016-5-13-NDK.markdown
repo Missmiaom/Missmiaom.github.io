@@ -30,7 +30,7 @@ tags:
 
 右键项目，选择 *New* -> *Module* , 选择 *Android library*， 名字自取:
 
-<img src="http://leiyiming.com/img/in-post/ndk/sellib.png"/>
+<img src="https://leiyiming.com/img/in-post/ndk/sellib.png"/>
 
 建立完成之后就有两个模块了，一个是 *app*， 一个是新建的 *lib* 。 然后右击 *lib* 模块中的 *main* 文件夹，选择 *new* -> *Folder* -> *JNIFolder* ，直接点 **Fnish** ,在 main 文件夹下新建一个 jni 文件夹。这个 jni 文件夹存放的就是我们需要用到的 C/C++ 文件。
 
@@ -110,13 +110,13 @@ ndk.dir=/home/exbot/android/android_ndk/android-ndk-r10
 
 还可以看到自动生成的 Android.mk 文件，这个文件包含了编译的规则，只不过是自动生成的并且无法直接修改，在文章最后会介绍怎么修改其内容。
 
-<img src="http://leiyiming.com/img/in-post/ndk/ndk编译.png"/>
+<img src="https://leiyiming.com/img/in-post/ndk/ndk编译.png"/>
 
 ### 使用 hellojni 库
 
 右键 app 模块，选择 open module setting， 在 dependencies 标签中给 app 模块添加 hellojni 模块的依赖。
 
-<img src="http://leiyiming.com/img/in-post/ndk/adddepen.png"/>
+<img src="https://leiyiming.com/img/in-post/ndk/adddepen.png"/>
 
 添加完成之后，需要在 MainActivity 类中加入如下代码：
 
@@ -134,7 +134,7 @@ textview = (TextView)findViewById(R.id.tv);
 textview.setText(hellojni());
 ```
 
-<img src="http://leiyiming.com/img/in-post/ndk/res.png"/>
+<img src="https://leiyiming.com/img/in-post/ndk/res.png"/>
 
 ### 修改 Android.mk 更改编译选项
 
@@ -195,7 +195,7 @@ cFlags 指明的是编译选项，这里加上了 -std=c99 ,使用c99规则编�
 
 看一下编译之后在 release 文件夹下自动生成的 Android.mk :
 
-<img src="http://leiyiming.com/img/in-post/ndk/andmk.png"/>
+<img src="https://leiyiming.com/img/in-post/ndk/andmk.png"/>
 
 可以看到， Android.mk 中已经多了 **LOCAL_CFLAGS** **LOCAL_LDLIBS** 两个标签，并且都是我们想要添加的。注意，因为这里只在 build.gradle 中的 release 标签中添加了 ndk 标签，所以只会在相应的 release 文件夹中生成我们想要的 Android.mk ， debug 文件夹下的没有更改。
 
@@ -207,6 +207,6 @@ cFlags 指明的是编译选项，这里加上了 -std=c99 ,使用c99规则编�
 
 参考网址：
 
-http://blog.csdn.net/ashqal/article/details/21869151
+https://blog.csdn.net/ashqal/article/details/21869151
 
-http://stackoverflow.com/questions/20674650/how-to-configure-ndk-with-android-gradle-plugin-0-7
+https://stackoverflow.com/questions/20674650/how-to-configure-ndk-with-android-gradle-plugin-0-7

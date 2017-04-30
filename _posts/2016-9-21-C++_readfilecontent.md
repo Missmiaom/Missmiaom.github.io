@@ -25,7 +25,7 @@ fstream          //文件读写流，对打开的文件可进行读写操作
 
 他们和其他流类之间的派生关系如下：
 
-<img src="http://leiyiming.com/img/in-post/post-c++/filestream/1.png"/>
+<img src="https://leiyiming.com/img/in-post/post-c++/filestream/1.png"/>
 
 
 #### 打开、关闭文件

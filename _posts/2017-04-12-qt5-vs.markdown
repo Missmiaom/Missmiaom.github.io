@@ -14,11 +14,11 @@ tags:
 
 ### VS2015环境搭建
 
-首先，VS2015必须选择安装 C++ 有关开发选项，然后使用 Qt 官方提供的VS插件 **qt-vs-addin-1.2.4-opensource.exe** 配置开发环境。[Qt5 for VS插件下载地址](http://mirrors.ustc.edu.cn/qtproject/archive/vsaddin/qt-vs-addin-1.2.4-opensource.exe)
+首先，VS2015必须选择安装 C++ 有关开发选项，然后使用 Qt 官方提供的VS插件 **qt-vs-addin-1.2.4-opensource.exe** 配置开发环境。[Qt5 for VS插件下载地址](https://mirrors.ustc.edu.cn/qtproject/archive/vsaddin/qt-vs-addin-1.2.4-opensource.exe)
 
 插件安装步骤一路 Next 即可，安装后可以在新建项目中看到有关 Qt 的选项了。
 
-<img src="http://leiyiming.com/img/in-post/post-qt/1.png"/>
+<img src="httpss://leiyiming.com/img/in-post/post-qt/1.png"/>
 
 ### 相比 Qt Creator 的区别
 
@@ -30,11 +30,11 @@ tags:
 
 * 第二步，在弹出的对话框中选择 Qt GUI Class
 
-<img src="http://leiyiming.com/img/in-post/post-qt/2.png"/>
+<img src="https://leiyiming.com/img/in-post/post-qt/2.png"/>
 
 * 第三步，点击 Next， 在填写类名的对话框中将 *Base CLass* 改为 *QDialog*，然后选择 finish 。
 
-<img src="http://leiyiming.com/img/in-post/post-qt/3.png"/>
+<img src="https://leiyiming.com/img/in-post/post-qt/3.png"/>
 
 按照上述做法就可以添加一个完整的窗体，在项目中看到对应名称的 '.ui' 、 '.h' 和 '.cpp' 文件。
 
@@ -62,19 +62,19 @@ void QtGuiTest::Btn_Clicked()
 
 * 第三步，在 Qt Designer 中，为 pushButton 的 clicked() 发出的信号添加槽函数：
 
-<img src="http://leiyiming.com/img/in-post/post-qt/4.png"/>
+<img src="https://leiyiming.com/img/in-post/post-qt/4.png"/>
 
 从上图可以看到，右侧没有一个函数可以与之对应，所以点击下方编辑，添加刚创建的槽函数 Btn_Clicked()
 
-<img src="http://leiyiming.com/img/in-post/post-qt/5.png"/>
+<img src="https://leiyiming.com/img/in-post/post-qt/5.png"/>
 
 然后在刚刚的界面就可以看到右侧新加的槽函数，与之对应即可
 
-<img src="http://leiyiming.com/img/in-post/post-qt/6.png"/>
+<img src="https://leiyiming.com/img/in-post/post-qt/6.png"/>
 
 * 最终结果：
 
-<img src="http://leiyiming.com/img/in-post/post-qt/7.png"/>
+<img src="https://leiyiming.com/img/in-post/post-qt/7.png"/>
 
 ---
 

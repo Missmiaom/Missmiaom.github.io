@@ -25,7 +25,7 @@ tags:
 
 由于 *deque* 的中控器设计，其迭代器比较复杂， *deque* 的迭代器需要指明当前数据所属的 *node* ，以及在缓冲区的位置 **cur** 。当迭代器进行递增和递减时，都需要判断是否需要从一个缓冲区调到下一个或者上一个缓冲区，所以迭代器也需要维护其所在缓冲区的头节点 **first** 和尾节点 **last** 。
 
-<img src="http://leiyiming.com/img/in-post/post-STL/deque中控器.png"/>
+<img src="https://leiyiming.com/img/in-post/post-STL/deque中控器.png"/>
 
 #### deque 的数据结构
 
@@ -33,7 +33,7 @@ tags:
 
 **例如**：缓冲区大小设置为32字节时，初始存放20个int型数据。初始数据总共占 20 * 4 / 32 = 3 （向上取整） 个缓冲区，即需要分配三个 *node*，此时不足8个，中控器创建8个 *node* （申请8个单位大小空间），然后选择正中间位置的三个 *node* 来存放三个缓冲区的指针。这样做的目的是尽量保证头尾都有相同的空间来扩展。
 
-<img src="http://leiyiming.com/img/in-post/post-STL/deque初始.png"/>
+<img src="https://leiyiming.com/img/in-post/post-STL/deque初始.png"/>
 
 *deque* 维护两个迭代器 **start** 和 **finish** ， 用于指向目前第一个数据和最后一个数据。当向头插入元素时， *start* 减一，如果 *start* 在一个 *node* 的边界时， *start* 就需要跳转到前一个 *node* 。 当 *start* 已经处于中控器的最左边的 *node* 时，如果这时往头部添加数据，就需要创建新的更大容量的中控器，并将原中控器内容拷贝到新中控器中。
 

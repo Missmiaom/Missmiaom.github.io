@@ -95,11 +95,11 @@ name、type、value属性分别代表参数的名称、类型、值，类型有�
 
 可以在打开的界面中看到一个在做绕圈圈的乌龟~
 
-<img src="http://leiyiming.com/img/in-post/post-ros/ros-param/turtle1.jpg"/>
+<img src="https://leiyiming.com/img/in-post/post-ros/ros-param/turtle1.jpg"/>
 
 这时运行 `rosparam get speed`,可以在终端看到其值为4.0。
 
-<img src="http://leiyiming.com/img/in-post/post-ros/ros-param/param.jpg"/>
+<img src="https://leiyiming.com/img/in-post/post-ros/ros-param/param.jpg"/>
 
 
 #### launch文件中的rosparam标签
@@ -129,7 +129,7 @@ command属性为操作命令，load/dump表示装载和卸载yaml文件，delete
 
 文件树结构如下：
 
-<img src="http://leiyiming.com/img/in-post/post-ros/ros-param/tree1.jpg"/>
+<img src="https://leiyiming.com/img/in-post/post-ros/ros-param/tree1.jpg"/>
 
 
 ### 获取参数的两种方法

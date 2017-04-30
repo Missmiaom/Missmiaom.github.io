@@ -381,7 +381,7 @@ float distance;
 * *imagePoints* – Array of corresponding image points, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector<Point2f> can be also passed here.
 
 
-* *cameraMatrix* – Input camera matrix <img src="http://leiyiming.com/img/in-post/post-opencv/camera_matrix.png"/>
+* *cameraMatrix* – Input camera matrix <img src="https://leiyiming.com/img/in-post/post-opencv/camera_matrix.png"/>
 
 * *distCoeffs* – Input vector of distortion coefficients of 4, 5, or 8 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
 

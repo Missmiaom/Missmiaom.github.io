@@ -10,7 +10,7 @@ tags:
     - bat
 ---
 
-> 本文主要记录windows的批处理脚本bat的编写记录，文章大部分来自于 Steve Jansen 的博客，网址：http://steve-jansen.github.io/guides/windows-batch-scripting/index.html，在此感谢作者通俗易懂的教程，本人为以后方便查阅作一记录。
+> 本文主要记录windows的批处理脚本bat的编写记录，文章大部分来自于 Steve Jansen 的博客，网址：https://steve-jansen.github.io/guides/windows-batch-scripting/index.html，在此感谢作者通俗易懂的教程，本人为以后方便查阅作一记录。
 
 ### 前言
 
@@ -45,7 +45,7 @@ ECHO hello
 PAUSE
 ```
 
-<img src="http://leiyiming.com/img/in-post/post-bat/1.png"/>
+<img src="https://leiyiming.com/img/in-post/post-bat/1.png"/>
 
 打开回显可以先显示脚本命令，然后再执行脚本，这样可以用来检查脚本的运行，有点像编程语言的断点调试（只不过这里不停顿）。这个功能并不是很好用，比如碰到 `FOR` 或者其他的复杂的语句，内部的命令就只能一次性显示出来，而无法一条一条显示。
 
@@ -90,7 +90,7 @@ Windows下会有许多系统的环境变量，这些变量在bat脚本运行时�
 
 使用 `SHIFT` 命令会将第一个参数从参数队列里弹出（pop），后续的参数往前移动。例如：
 
-<img src="http://leiyiming.com/img/in-post/post-bat/2.png"/>
+<img src="https://leiyiming.com/img/in-post/post-bat/2.png"/>
 
 ##### 处理参数处理
 
@@ -163,7 +163,7 @@ ECHO %ERRORLEVEL%
 PAUSE
 ```
 
-<img src="http://leiyiming.com/img/in-post/post-bat/3.png"/>
+<img src="https://leiyiming.com/img/in-post/post-bat/3.png"/>
 
 ##### && ||
 
@@ -215,7 +215,7 @@ RECHO hello 2> log.txt
 
 这里故意写错 “EHCO” ，然后在输出重定向符前面加上代表标准错误的编号 *2* ， 这样就可以将命令的错误信息输出到 log.txt 中了，结果如下：
 
-<img src="http://leiyiming.com/img/in-post/post-bat/5.png"/>
+<img src="https://leiyiming.com/img/in-post/post-bat/5.png"/>
 
 注：这里的 `TYPE` 命令作用是将文件内容打印到屏幕上，这里可以看到 log.txt 文件的内容即是前一条命令的错误信息。
 
@@ -396,4 +396,4 @@ EXIT /B 0
 
 ### 后记
 
-脚本语言的优势就是编写方便，而且不需要编译即可运行，但是效率不高，可以用来代替一些重复性的基础工作。bat脚本的使用还是很简单的，前提是熟悉 *DOS* 命令，所以这里再给大家分享一个网址： [DOS命令详解](http://www.feiesoft.com/windows/cmd/)
+脚本语言的优势就是编写方便，而且不需要编译即可运行，但是效率不高，可以用来代替一些重复性的基础工作。bat脚本的使用还是很简单的，前提是熟悉 *DOS* 命令，所以这里再给大家分享一个网址： [DOS命令详解](https://www.feiesoft.com/windows/cmd/)

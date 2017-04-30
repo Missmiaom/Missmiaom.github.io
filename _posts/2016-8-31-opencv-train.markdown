@@ -33,7 +33,7 @@ tags:
 
 *legacy*      :一些已经废弃的代码库，保留下来作为向下兼容
 
-[组件结构](http://blog.csdn.net/poem_qianmo/article/details/19925819)
+[组件结构](https://blog.csdn.net/poem_qianmo/article/details/19925819)
 
 ### 操作图片
 

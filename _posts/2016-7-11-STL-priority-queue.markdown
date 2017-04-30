@@ -41,7 +41,7 @@ tags:
 
 3. 重复第二步，直至新元素小于父节点或新元素已位于根节点处。（上溯）
 
-<img src="http://leiyiming.com/img/in-post/post-STL/push_heap.png"/>
+<img src="https://leiyiming.com/img/in-post/post-STL/push_heap.png"/>
 
 **时间复杂度**： 由于最坏情况是上溯到根节点，所以上溯次数最多是完全二叉树的深度。由完全二叉树的性质可得：其深度为 [log2n] + 1（向下取整）。所以 *push_heap* 算法的时间复杂度为 **O（log2n）** 。
 
@@ -57,7 +57,7 @@ tags:
 
 3. 重复第二步，直至替补元素无子节点或键值大于其所有子节点。（下溯）
 
-<img src="http://leiyiming.com/img/in-post/post-STL/pop_heap.png"/>
+<img src="https://leiyiming.com/img/in-post/post-STL/pop_heap.png"/>
 
 **时间复杂度**：同 *push_heap* ,其最坏情况是下溯到最底层。所以其时间复杂度为 **O（log2n）** 。
 

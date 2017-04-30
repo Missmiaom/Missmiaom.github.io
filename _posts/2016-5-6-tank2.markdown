@@ -32,8 +32,8 @@ HDK：HDK是mbed提供的硬件参考设计，它是面向用户开发设计的�
 WEB：为了省去用户开发环境安装的麻烦，mbed提供了一个完备的基于浏览器的微处理器软件开发环境，包括代码编写，程序编译，版本控制等功能，用户只要上网就可以开发，编译结果只要下载保存到mbed开发板上即可工作，非常方便。
 
 mbed 本身提供了比较好用的网页编辑器，能够针对不同平台调用相应的硬件库，并且只需要一键编译就可以得到二进制文件，文件可通过浏览器下载。
-[选择平台网址](https://developer.mbed.org/platforms/)
-<img src="http://leiyiming.com/img/in-post/post-tank/mbedonline.png"/>
+[选择平台网址](httpss://developer.mbed.org/platforms/)
+<img src="https://leiyiming.com/img/in-post/post-tank/mbedonline.png"/>
 
 上图就是选择控制器的页面，mbed目前支持的只是一小部分的控制器。对于初学者来说，在linux下有这样类似IDE的环境是很不错的。
 
@@ -41,15 +41,15 @@ mbed 本身提供了比较好用的网页编辑器，能够针对不同平台调
 
 老司机还是得离线用，然后自己编译呀，要不然总是不放心的～～而且离线之后就可以针对自己的板子来修改库文件达到移植的目的了。
 
-我们需要下载一个编译工具—— **gcc4mbed** ，[gcc4mbed下载地址](https://github.com/adamgreen/gcc4mbed)， 在这个网页下方有具体的安装方法，使用的时候只需要按照linux下安装的方法即可。
+我们需要下载一个编译工具—— **gcc4mbed** ，[gcc4mbed下载地址](httpss://github.com/adamgreen/gcc4mbed)， 在这个网页下方有具体的安装方法，使用的时候只需要按照linux下安装的方法即可。
 
-移植到新的设备： [添加新的设备到mbed](https://github.com/adamgreen/gcc4mbed/blob/master/notes/new_devices.creole#adding-new-devices-to-gcc4mbed)
+移植到新的设备： [添加新的设备到mbed](httpss://github.com/adamgreen/gcc4mbed/blob/master/notes/new_devices.creole#adding-new-devices-to-gcc4mbed)
 
-gcc4mbed 例子：[例子](https://github.com/adamgreen/gcc4mbed/tree/master/samples)
+gcc4mbed 例子：[例子](httpss://github.com/adamgreen/gcc4mbed/tree/master/samples)
 
-makefile 配置选项： [makefile](https://github.com/adamgreen/gcc4mbed/blob/master/notes/makefile.creole#make-variables)
+makefile 配置选项： [makefile](httpss://github.com/adamgreen/gcc4mbed/blob/master/notes/makefile.creole#make-variables)
 
-mbed API手册： [handbook](https://developer.mbed.org/handbook/Homepage)
+mbed API手册： [handbook](httpss://developer.mbed.org/handbook/Homepage)
 
 下载工具则选用普通的JLink即可， 调试也是用JLink官网的 Debuger。具体下载地址可自行搜索，这里就不在赘述。
 
@@ -65,7 +65,7 @@ mbed API手册： [handbook](https://developer.mbed.org/handbook/Homepage)
 
 ### rosserial
 
-简单地介绍完 mbed ，接下来的重点则是 **rosserial_mbed** 了，参考网址：[rosserial_mbed配置方法](http://wiki.ros.org/rosserial_mbed/Tutorials/rosserial_mbed%20Setup)。
+简单地介绍完 mbed ，接下来的重点则是 **rosserial_mbed** 了，参考网址：[rosserial_mbed配置方法](https://wiki.ros.org/rosserial_mbed/Tutorials/rosserial_mbed%20Setup)。
 
 第一步，先下载 **rosserial** 包至可用的工作空间，并编译。
 
