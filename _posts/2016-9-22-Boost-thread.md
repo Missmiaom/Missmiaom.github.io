@@ -3,7 +3,7 @@ layout:     post
 title:      "C++ Boost 之 线程操作"
 subtitle:   " \"C++\""
 date:       2016-09-22
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:

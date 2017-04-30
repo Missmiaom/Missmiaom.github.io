@@ -3,7 +3,7 @@ layout:     post
 title:      "ROS IDE之eclipse配置方法"
 subtitle:   " \"eclipse setting for ROS\""
 date:       2016-04-12
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -55,7 +55,7 @@ tags:
 - $echo ROS_ROOT
 
 然后更改编译选项，选择 *properties -> C/C++ general -> Preprocessor Include Paths, Macros etc*，点击 *Providers* 标签，在 *CDT GCC Built-in Compiler Settings [ Shared ]* 选项打上勾。 如下图：
-<img src="http://leiym.com/img/in-post/post-ros/eclipse-setting.jpg"/>
+<img src="http://leiyiming.com/img/in-post/post-ros/eclipse-setting.jpg"/>
 
 最后，点击 *File --> Import --> Existing projects into workspace*，**记住，这里的选择的文件夹一定要是项目所在的工作空间的根目录！**
 

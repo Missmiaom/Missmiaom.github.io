@@ -3,7 +3,7 @@ layout:     post
 title:      "openCV2之特征点检测匹配以及RANSAC优化"
 subtitle:   " \"opencv\""
 date:       2016-09-19
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -381,7 +381,7 @@ float distance;
 * *imagePoints* – Array of corresponding image points, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector<Point2f> can be also passed here.
 
 
-* *cameraMatrix* – Input camera matrix <img src="http://leiym.com/img/in-post/post-opencv/camera_matrix.png"/>
+* *cameraMatrix* – Input camera matrix <img src="http://leiyiming.com/img/in-post/post-opencv/camera_matrix.png"/>
 
 * *distCoeffs* – Input vector of distortion coefficients of 4, 5, or 8 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
 

@@ -3,7 +3,7 @@ layout:     post
 title:      "nodelet的使用方法以及传输时间测试"
 subtitle:   " \"the nodelet of ROS\""
 date:       2016-08-20
-author:     "Leiym"
+author:     "Leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -32,7 +32,7 @@ ROS 中需要有一个工具能够解决这个问题，**nodelet** 便诞生了�
 
 ### 编写方法
 
-**nodelet 是基于 pluginlib 插件机制的，对于不太熟悉 pluginlib 的读者，我推荐先浏览一遍我之前的博客： [pluginlib详解](http://leiym.com/2016/08/10/ROS-pluginlib/)**
+**nodelet 是基于 pluginlib 插件机制的，对于不太熟悉 pluginlib 的读者，我推荐先浏览一遍我之前的博客： [pluginlib详解](http://leiyiming.com/2016/08/10/ROS-pluginlib/)**
 
 由于 *nodelet* 使用了插件机制，所以其使用方法和 *pluginlib* 的使用方法类似。具体使用方法有以下三步。
 
@@ -255,7 +255,7 @@ PLUGINLIB_EXPORT_CLASS(nodelet_test::Pub_nodelet, nodelet::Nodelet)
 
 `$ rosrun nodelet nodelet load nodelet_test/Pub_nodelet nodelet_manager _output:=screen`
 
-<img src="http://leiym.com/img/in-post/post-ros/nodelet_r7.png"/>
+<img src="http://leiyiming.com/img/in-post/post-ros/nodelet_r7.png"/>
 
 可以看到，接收到的时间和发布的时间几乎相差无几，那么如果不使用 nodelet 进行传递五千万元素的数组呢，对比结果如下：（注：运行环境均一样，数据也是随机生成的五千万元素的数组）
 
@@ -263,11 +263,11 @@ PLUGINLIB_EXPORT_CLASS(nodelet_test::Pub_nodelet, nodelet::Nodelet)
 
 五次的发布时间：
 
-<img src="http://leiym.com/img/in-post/post-ros/nodelet_r1.png"/>
+<img src="http://leiyiming.com/img/in-post/post-ros/nodelet_r1.png"/>
 
 五次的接收时间：
 
-<img src="http://leiym.com/img/in-post/post-ros/nodelet_r2.png"/>
+<img src="http://leiyiming.com/img/in-post/post-ros/nodelet_r2.png"/>
 
 可以看到，在不同进程中就算使用了 *shared_ptr* 也是会进行拷贝传输的，时间损耗大概在 **1.3s** 左右。
 
@@ -292,7 +292,7 @@ PLUGINLIB_EXPORT_CLASS(nodelet_test::Pub_nodelet, nodelet::Nodelet)
 
 五次的发布和接收的时间：
 
-<img src="http://leiym.com/img/in-post/post-ros/nodelet_r6.png"/>
+<img src="http://leiyiming.com/img/in-post/post-ros/nodelet_r6.png"/>
 
 可以看到，在同一进程中使用 *shared_ptr* 进行的是零拷贝复制，非常迅速，平均时间和使用 *nodelet* 相近。
 
@@ -300,7 +300,7 @@ PLUGINLIB_EXPORT_CLASS(nodelet_test::Pub_nodelet, nodelet::Nodelet)
 
 五次的发布和接收的时间：
 
-<img src="http://leiym.com/img/in-post/post-ros/nodelet_r5.png"/>
+<img src="http://leiyiming.com/img/in-post/post-ros/nodelet_r5.png"/>
 
 可以看到，在同一进程中不使用 *shared_ptr* 进行的是拷贝复制，时间损耗也大概在 **1.3s** 左右，和在不同进程中分别发布接收的效果相同。
 

@@ -3,7 +3,7 @@ layout:     post
 title:      "问题总结Q&A"
 subtitle:   " \"Summary of problems\""
 date:       2016-08-09
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -50,11 +50,11 @@ tags:
 
 2. 选择 VMnet0 ， 选择桥接模式， 桥接到主机所使用的网卡。如下图：
 
-<img src="http://leiym.com/img/in-post/post-STL/桥接模式设置.png"/>
+<img src="http://leiyiming.com/img/in-post/post-STL/桥接模式设置.png"/>
 
 3. 虚拟机 -> 设置 -> 网络适配器 -> 网络链接 -> 选择桥接模式即可。
 
-<img src="http://leiym.com/img/in-post/post-STL/桥接模式设置2.png"/>
+<img src="http://leiyiming.com/img/in-post/post-STL/桥接模式设置2.png"/>
 
 #### Q：依赖包无法下载导致下载包失败
 
@@ -68,7 +68,7 @@ tags:
 
 4. 打开新立得包管理器（Synaptic Package Manager），搜索需要降级的包名，然后点击 Package -> Force Version ， 选择 apt 提示的版本，然后点击 Apply 。最后安装时就不会出现依赖的问题了。
 
-<img src="http://leiym.com/img/in-post/post-STL/降低版本.png"/>
+<img src="http://leiyiming.com/img/in-post/post-STL/降低版本.png"/>
 
 
 ### ROS & tk1
@@ -85,7 +85,7 @@ tags:
 
 4. 在每台机器上的 */etc/hosts* 文件中，加入以 **IP 主机名** 格式的标示。有几个机器就加几行。如下图：
 
-<img src="http://leiym.com/img/in-post/post-STL/hosts.png"/>
+<img src="http://leiyiming.com/img/in-post/post-STL/hosts.png"/>
 
 
 

@@ -3,7 +3,7 @@ layout:     post
 title:      "RGBDSLAM 源码剖析"
 subtitle:   " \"SLAM\""
 date:       2016-10-06
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:

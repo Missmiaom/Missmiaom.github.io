@@ -4,7 +4,7 @@ title:      "Linux下 使用C++按名称顺序读取文件夹中所有文件名�
 
 subtitle:   " \"C++\""
 date:       2016-09-20
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:

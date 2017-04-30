@@ -1,9 +1,9 @@
 ---
 layout:     post
-title:      "Welcome to Leiym Blog"
+title:      "Welcome to leiyiming Blog"
 subtitle:   " \"Hello World, Hello Blog\""
 date:       2016-04-12
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 tags:
     - 生活
@@ -34,12 +34,12 @@ tags:
 
 ## 前言
 
-Leiym 的 Blog 就这么开通了。
+leiyiming 的 Blog 就这么开通了。
 
-2016 年，Leiym 总算有个地方可以好好写点东西了。
+2016 年，leiyiming 总算有个地方可以好好写点东西了。
 
 作为一个程序员， blog 这种东西不做就落后了，不管是工作，还是学习，记录学习历程都是大有裨益的。之前在CSDN上有建立过自己的博客，但感觉没什么动力，网页外观千篇一律，排版也没有什么值得DIY的地方。
-昨天心血来潮，就花钱买了Leiym.com的域名，然后绑定到了github pages。 因为对html+css不熟悉， 搞到现在才差不多， 但是用的模板还有很多细 节没有改。 
+昨天心血来潮，就花钱买了leiyiming.com的域名，然后绑定到了github pages。 因为对html+css不熟悉， 搞到现在才差不多， 但是用的模板还有很多细 节没有改。 
 
 ---
 
@@ -59,4 +59,4 @@ Leiym 的 Blog 就这么开通了。
 
 如果你恰好逛到了这里，希望你也能喜欢这个博客主题。
 
-—— Leiym 后记于 2016.4 某个满课一天的中午
+—— leiyiming 后记于 2016.4 某个满课一天的中午

@@ -3,7 +3,7 @@ layout:     post
 title:      "搭建基于ROS的自主机器人平台（二）——基于mbed的STM32F4系列控制器"
 subtitle:   " \"Tank\""
 date:       2016-05-06
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -33,7 +33,7 @@ WEB：为了省去用户开发环境安装的麻烦，mbed提供了一个完备�
 
 mbed 本身提供了比较好用的网页编辑器，能够针对不同平台调用相应的硬件库，并且只需要一键编译就可以得到二进制文件，文件可通过浏览器下载。
 [选择平台网址](https://developer.mbed.org/platforms/)
-<img src="http://leiym.com/img/in-post/post-tank/mbedonline.png"/>
+<img src="http://leiyiming.com/img/in-post/post-tank/mbedonline.png"/>
 
 上图就是选择控制器的页面，mbed目前支持的只是一小部分的控制器。对于初学者来说，在linux下有这样类似IDE的环境是很不错的。
 

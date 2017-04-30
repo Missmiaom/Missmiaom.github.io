@@ -3,7 +3,7 @@ layout:     post
 title:      "C++ STL 之 stack & queue"
 subtitle:   " \"Standard Template Library\""
 date:       2016-07-08
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -17,9 +17,9 @@ tags:
 
 **stack** 是一种先进后出（First In Last Out， FILO）的数据结构。 **queue** 是一种先进先出（First In First Out, FIFO）的数据结构。 *stack* 只有一个出入口，它允许在其最顶端压入弹出数据。 *queue* 有一个入口与一个出口，它只允许在尾端压入数据，在首端弹出数据。 它们相同点都是不允许遍历，所以它们都没有迭代器。其次，它们都是以一个 *deque* 作为底层容器来实现特殊的功能，是一种 **adapter** ， 所以它们并不被视为容器类，而是容器适配器（container adapter）。
 
-<img src="http://leiym.com/img/in-post/post-STL/stack.png"/>
+<img src="http://leiyiming.com/img/in-post/post-STL/stack.png"/>
 
-<img src="http://leiym.com/img/in-post/post-STL/queue.png"/>
+<img src="http://leiyiming.com/img/in-post/post-STL/queue.png"/>
 
 **stack & queue 实现**： *deque* 是一个双向开口的容器，所以只要将一端封闭，就可以很简单地实现 *stack* 所需的功能。 将 *deque* 一端的插入封闭，另一端的弹出封闭，就实现了 *queue* 的功能。
 

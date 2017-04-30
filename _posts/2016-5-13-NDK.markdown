@@ -3,7 +3,7 @@ layout:     post
 title:      "Android Studio编译jni模块"
 subtitle:   " \"NDK\""
 date:       2016-05-13
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -30,7 +30,7 @@ tags:
 
 右键项目，选择 *New* -> *Module* , 选择 *Android library*， 名字自取:
 
-<img src="http://leiym.com/img/in-post/ndk/sellib.png"/>
+<img src="http://leiyiming.com/img/in-post/ndk/sellib.png"/>
 
 建立完成之后就有两个模块了，一个是 *app*， 一个是新建的 *lib* 。 然后右击 *lib* 模块中的 *main* 文件夹，选择 *new* -> *Folder* -> *JNIFolder* ，直接点 **Fnish** ,在 main 文件夹下新建一个 jni 文件夹。这个 jni 文件夹存放的就是我们需要用到的 C/C++ 文件。
 
@@ -66,10 +66,10 @@ javah -d ${TargetPath} -classpath "${SourceFile}" "${TargetClassName}"
 
 注释： ${TargetPath} 表示生成头文件的目标路径，即 hellojni 模块的 jni 文件夹。${SourceFile} 表示上述 MainActivity 类的路径，${TargetClassName} 表示生成头文件的名称。
 
-这里，我们在 jni 文件下生成了 com_leiym_ndktest_MainActivity.h ，里面会有一个函数的声明：
+这里，我们在 jni 文件下生成了 com_leiyiming_ndktest_MainActivity.h ，里面会有一个函数的声明：
 
 ```
-JNIEXPORT jstring JNICALL Java_com_leiym_ndktest_MainActivity_hellojni
+JNIEXPORT jstring JNICALL Java_com_leiyiming_ndktest_MainActivity_hellojni
   (JNIEnv *, jobject);
 ```
 
@@ -77,7 +77,7 @@ JNIEXPORT jstring JNICALL Java_com_leiym_ndktest_MainActivity_hellojni
 
 1. 函数返回值类型是 jni.h 中规定的类型。不过有一定规律可以借鉴（前者为C/C++类型，后者为jni.h规定类型）：int -> jint, string -> jstring, bool -> jboolean 。
 
-2. 函数名按以下顺序声明： Java_包名_装入类名_函数名，包名中的 "." 也需要改为下划线。例如： Java_com_leiym_ndktest_MainActivity_hellojni ，就表示包名为 com.leiym.ndktest 的 MainActivity 类 的 hellojni 函数。
+2. 函数名按以下顺序声明： Java_包名_装入类名_函数名，包名中的 "." 也需要改为下划线。例如： Java_com_leiyiming_ndktest_MainActivity_hellojni ，就表示包名为 com.leiyiming.ndktest 的 MainActivity 类 的 hellojni 函数。
 
 3. 函数参数一定含有 JNIEnv* 类型和 jobject 类型的形参。如果声明原生函数时带有其他参数，则自动地依次在这两个参数之后添加，并且参数类型也符合述第2点中提到的类型。
 
@@ -86,9 +86,9 @@ JNIEXPORT jstring JNICALL Java_com_leiym_ndktest_MainActivity_hellojni
 在 hellojni 模块中新建 hello.cpp 文件，在这个文件中我们来实现头文件中声明的函数。
 
 ```
-#include "com_leiym_ndktest_MainActivity.h"
+#include "com_leiyiming_ndktest_MainActivity.h"
 
-JNIEXPORT jstring JNICALL Java_com_leiym_ndktest_MainActivity_hellojni(JNIEnv *env, jobject obj)
+JNIEXPORT jstring JNICALL Java_com_leiyiming_ndktest_MainActivity_hellojni(JNIEnv *env, jobject obj)
 {
     return env->NewStringUTF("Hello from JNI ! Compiled with ABI .");
 }
@@ -110,13 +110,13 @@ ndk.dir=/home/exbot/android/android_ndk/android-ndk-r10
 
 还可以看到自动生成的 Android.mk 文件，这个文件包含了编译的规则，只不过是自动生成的并且无法直接修改，在文章最后会介绍怎么修改其内容。
 
-<img src="http://leiym.com/img/in-post/ndk/ndk编译.png"/>
+<img src="http://leiyiming.com/img/in-post/ndk/ndk编译.png"/>
 
 ### 使用 hellojni 库
 
 右键 app 模块，选择 open module setting， 在 dependencies 标签中给 app 模块添加 hellojni 模块的依赖。
 
-<img src="http://leiym.com/img/in-post/ndk/adddepen.png"/>
+<img src="http://leiyiming.com/img/in-post/ndk/adddepen.png"/>
 
 添加完成之后，需要在 MainActivity 类中加入如下代码：
 
@@ -134,7 +134,7 @@ textview = (TextView)findViewById(R.id.tv);
 textview.setText(hellojni());
 ```
 
-<img src="http://leiym.com/img/in-post/ndk/res.png"/>
+<img src="http://leiyiming.com/img/in-post/ndk/res.png"/>
 
 ### 修改 Android.mk 更改编译选项
 
@@ -195,7 +195,7 @@ cFlags 指明的是编译选项，这里加上了 -std=c99 ,使用c99规则编�
 
 看一下编译之后在 release 文件夹下自动生成的 Android.mk :
 
-<img src="http://leiym.com/img/in-post/ndk/andmk.png"/>
+<img src="http://leiyiming.com/img/in-post/ndk/andmk.png"/>
 
 可以看到， Android.mk 中已经多了 **LOCAL_CFLAGS** **LOCAL_LDLIBS** 两个标签，并且都是我们想要添加的。注意，因为这里只在 build.gradle 中的 release 标签中添加了 ndk 标签，所以只会在相应的 release 文件夹中生成我们想要的 Android.mk ， debug 文件夹下的没有更改。
 

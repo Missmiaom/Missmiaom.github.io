@@ -3,7 +3,7 @@ layout:     post
 title:      "rtabmap_ros 从入门到放弃"
 subtitle:   " \"rtabmap_ros\""
 date:       2016-10-27
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -28,7 +28,7 @@ $ roslaunch rtabmap_ros rgbd_mapping.launch rtabmap_args:="--delete_db_on_start"
 
 启动之后，如果没有错误的话就可以在 rtabmap 定制化的界面中看到生成的三维地图了。
 
-<img src="http://leiym.com/img/in-post/post-rtabmap/rtabmap1.png"/>
+<img src="http://leiyiming.com/img/in-post/post-rtabmap/rtabmap1.png"/>
 
 
 ### rtabmap + stereo camera
@@ -78,7 +78,7 @@ rtabmap-databaseViewer ~/.ros/rtabmap.db
 
 可以看到以下界面：
 
-<img src="http://leiym.com/img/in-post/post-rtabmap/rtabmap2.png"/>
+<img src="http://leiyiming.com/img/in-post/post-rtabmap/rtabmap2.png"/>
 
 这个工具来看算法的运行效果非常给力，拖动下方的进度条可以查看对应帧之间的特征匹配结果，在 *view* 选项中，还可以查看三维地图，如果有 scan 信息的话还可以查看二维地图，在 *info* 中还可以看到 *Ground truth* 、 *Total odometry length* 等等数据。在 *edit* 选项中，还可以生成 g2o graph，甚至还能再对该数据集进行更多的闭环检测。
 
@@ -160,7 +160,7 @@ rosrun tf view_frames
 
 * 可选，如果你想查看三维地图，可以添加 PointCloud2 ，然后话题名称选择 */rtabmap/cloud_map*。
 
-<img src="http://leiym.com/img/in-post/post-rtabmap/rtabmap3.png"/>
+<img src="http://leiyiming.com/img/in-post/post-rtabmap/rtabmap3.png"/>
 
 接下来的导航就是轻车熟路了，选择 *2D Nav Goal* 指定目标点，然后就可以进行导航了。
 
@@ -186,7 +186,7 @@ rtabmap 除了可以用 scan 来生成二维地图以外，还可以使用 rtabm
 
 在之前的 launch 文件中将 rtabmap 中的参数 *subscaribe_scan* 设置为 false，然后再加上以上一个节点。这里是单独启动了一个nodelet，并没有加载 nodelet manager。这里将 *cloud* 重映射为 kinect 产生的点云数据话题 */camera/depth_registered/points*。然后将 *obstacles* 重映射为 */planner_cloud* 。
 
-<img src="http://leiym.com/img/in-post/post-rtabmap/rtabmap5.png"/>
+<img src="http://leiyiming.com/img/in-post/post-rtabmap/rtabmap5.png"/>
 
 这里可以看到由于是投影地图，并不像激光只扫外面一圈，所以地图显得比较乱，我觉得这种比较适合室外的大场景的SLAM，因为这个并不需要地面是平面。
 
@@ -215,7 +215,7 @@ rtabmap 除了可以用 scan 来生成二维地图以外，还可以使用 rtabm
 
 下面是采用 scan 地图方法进行的SLAM效果图：
 
-<img src="http://leiym.com/img/in-post/post-rtabmap/rtabmap6.png"/>
+<img src="http://leiyiming.com/img/in-post/post-rtabmap/rtabmap6.png"/>
 
 ---
 

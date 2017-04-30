@@ -3,7 +3,7 @@ layout:     post
 title:      "搭建基于ROS的自主机器人平台（一）——开发计划总览"
 subtitle:   " \"Tank\""
 date:       2016-05-05
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -19,7 +19,7 @@ tags:
 
 此次开发的目的是针对履带式底盘开发出完整的自主导航机器人，机器人基于ROS架构，能够实现SLAM，目标识别，交互控制等功能。第一步，针对基于mbed的STM32F4系列控制器开发机器人底层功能，如：控速，反馈，里程测量等；第二步，利用rosserial完成上位机与控制器的通信，并且实现Navigation Stack所需接口；第三步，开发上层功能包，完成交互控制，自主建图，仿真等功能。第四步，针对特定要求，加入目标识别功能，加入GPS加强室外导航准度。
 
-<img src="http://leiym.com/img/in-post/post-tank/tank.jpg"/>
+<img src="http://leiyiming.com/img/in-post/post-tank/tank.jpg"/>
 
 
 ### ROS Navigation Stack 简介
@@ -30,7 +30,7 @@ Navigation Stack能够根据机器人的里程计数据，传感器数据完成�
 
 #### 话题结构图解
 
-<img src="http://leiym.com/img/in-post/post-tank/overview_tf.png"/>
+<img src="http://leiyiming.com/img/in-post/post-tank/overview_tf.png"/>
 
 上图是Navigation Stack中各个包之间的话题关系。小方框和椭圆代表的是各个部件，箭头上标出了相连部件之间通信的话题名称以及消息类型。中间的大方框代表非常重要的move_base包，其中包含了全局地图，局部地图，全局路径以及局部路径，还有恢复机制，其中的结构我们暂时不需要了解。以大方框为界可以看到有五个话题输入（"tf", "odom", "/map", "sensor topics"），一个话题输出("cmd_vel")。输入的话题对应着五个需要的接口：tf转换关系，odom里程信息，map地图数据，传感器数据；一个输出的话题即底盘的速度控制。
 

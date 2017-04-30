@@ -3,7 +3,7 @@ layout:     post
 title:      "C++ 读取文件与字符串类型装换"
 subtitle:   " \"C++\""
 date:       2016-09-21
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -25,7 +25,7 @@ fstream          //文件读写流，对打开的文件可进行读写操作
 
 他们和其他流类之间的派生关系如下：
 
-<img src="http://leiym.com/img/in-post/post-c++/filestream/1.png"/>
+<img src="http://leiyiming.com/img/in-post/post-c++/filestream/1.png"/>
 
 
 #### 打开、关闭文件

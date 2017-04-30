@@ -3,7 +3,7 @@ layout:     post
 title:      "搭建基于ROS的自主机器人平台（三）——底层功能的开发"
 subtitle:   " \"Tank\""
 date:       2016-05-09
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -41,13 +41,13 @@ geometry_msgs/Vector angular
 
 由线速度和角速度推导出差速轮轮速的公式如下：
 
-<img src="http://leiym.com/img/in-post/post-tank/轨迹推演.gif"/>
+<img src="http://leiyiming.com/img/in-post/post-tank/轨迹推演.gif"/>
 
 这里的 *Vl* ， *Vr* 为计算得到的左右轮速， *l* 为轮轴距， *V* 为 X 轴线速度， *w* 为 Z 轴角速度。
 
 **注意**：ROS中的坐标系是右手坐标系，简单地说就是以机器人正前方为 *X* 轴正向，正左方为 *Y* 轴正向，正上方为 *Z* 轴正向。右手法则中四指的方向为旋转正向，即逆时针方向。如下图：
 
-<img src="http://leiym.com/img/in-post/post-tank/右手法则.png"/>
+<img src="http://leiyiming.com/img/in-post/post-tank/右手法则.png"/>
 
 OK，了解完这些，我们就可以开始了动手了。
 
@@ -96,7 +96,7 @@ void subscribeVelocityCommand(const geometry_msgs::Twist& msg)
 
 公式如下：
 
-<img src="http://leiym.com/img/in-post/post-tank/轨迹推演逆.gif"/>
+<img src="http://leiyiming.com/img/in-post/post-tank/轨迹推演逆.gif"/>
 
 代码：
 

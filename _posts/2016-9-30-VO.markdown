@@ -3,7 +3,7 @@ layout:     post
 title:      "VO DIY小记"
 subtitle:   " \"SLAM\""
 date:       2016-09-30
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:

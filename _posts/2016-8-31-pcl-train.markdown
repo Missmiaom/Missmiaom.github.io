@@ -3,7 +3,7 @@ layout:     post
 title:      "PCL学习笔记——持续更新"
 subtitle:   " \"PCL\""
 date:       2016-08-31
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:

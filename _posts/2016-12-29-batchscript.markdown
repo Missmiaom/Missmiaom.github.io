@@ -3,7 +3,7 @@ layout:     post
 title:      "windows批处理脚本Batch Script编写记录"
 subtitle:   " \"bat\""
 date:       2016-12-19
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -45,7 +45,7 @@ ECHO hello
 PAUSE
 ```
 
-<img src="http://leiym.com/img/in-post/post-bat/1.png"/>
+<img src="http://leiyiming.com/img/in-post/post-bat/1.png"/>
 
 打开回显可以先显示脚本命令，然后再执行脚本，这样可以用来检查脚本的运行，有点像编程语言的断点调试（只不过这里不停顿）。这个功能并不是很好用，比如碰到 `FOR` 或者其他的复杂的语句，内部的命令就只能一次性显示出来，而无法一条一条显示。
 
@@ -90,7 +90,7 @@ Windows下会有许多系统的环境变量，这些变量在bat脚本运行时�
 
 使用 `SHIFT` 命令会将第一个参数从参数队列里弹出（pop），后续的参数往前移动。例如：
 
-<img src="http://leiym.com/img/in-post/post-bat/2.png"/>
+<img src="http://leiyiming.com/img/in-post/post-bat/2.png"/>
 
 ##### 处理参数处理
 
@@ -163,7 +163,7 @@ ECHO %ERRORLEVEL%
 PAUSE
 ```
 
-<img src="http://leiym.com/img/in-post/post-bat/3.png"/>
+<img src="http://leiyiming.com/img/in-post/post-bat/3.png"/>
 
 ##### && ||
 
@@ -215,7 +215,7 @@ RECHO hello 2> log.txt
 
 这里故意写错 “EHCO” ，然后在输出重定向符前面加上代表标准错误的编号 *2* ， 这样就可以将命令的错误信息输出到 log.txt 中了，结果如下：
 
-<img src="http://leiym.com/img/in-post/post-bat/5.png"/>
+<img src="http://leiyiming.com/img/in-post/post-bat/5.png"/>
 
 注：这里的 `TYPE` 命令作用是将文件内容打印到屏幕上，这里可以看到 log.txt 文件的内容即是前一条命令的错误信息。
 

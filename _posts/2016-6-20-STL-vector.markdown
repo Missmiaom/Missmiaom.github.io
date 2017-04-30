@@ -3,7 +3,7 @@ layout:     post
 title:      "C++ STL 之 vector"
 subtitle:   " \"Standard Template Library\""
 date:       2016-06-20
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:

@@ -3,7 +3,7 @@ layout:     post
 title:      "pluginlib的使用总结"
 subtitle:   " \"the pluginlib of ROS\""
 date:       2016-08-10
-author:     "Leiym"
+author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
@@ -162,7 +162,7 @@ add_library(calculate_plugin
 rospack plugins --attrib=plugin pluginlib_test
 ```
 
-<img src="http://leiym.com/img/in-post/post-ros/查看插件.png"/>
+<img src="http://leiyiming.com/img/in-post/post-ros/查看插件.png"/>
 
 
 注： *pluginlib_test* 为我的插件所在的包名，换成你想查找的包名，就可以查看这个包中的插件。
@@ -229,7 +229,7 @@ calculate->initialize(x, y);
 
 调用 *ClassLoader* 对象的 *createInstance* 函数根据 rosparam 设置的参数获得不同的插件的实例。最后调用相关方法，来得到结果。
 
-<img src="http://leiym.com/img/in-post/post-ros/plugin运行结果.png"/>
+<img src="http://leiyiming.com/img/in-post/post-ros/plugin运行结果.png"/>
 
 可以看到上图中，只设置的参数 *calculate* 的值便得到了不同的结果。即使用了不同的插件。
 
