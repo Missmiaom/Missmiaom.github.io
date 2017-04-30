@@ -18,7 +18,7 @@ tags:
 
 插件安装步骤一路 Next 即可，安装后可以在新建项目中看到有关 Qt 的选项了。
 
-<img src="httpss://leiyiming.com/img/in-post/post-qt/1.png"/>
+<img src="https://leiyiming.com/img/in-post/post-qt/1.png"/>
 
 ### 相比 Qt Creator 的区别
 
