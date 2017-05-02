@@ -124,3 +124,115 @@ C++ 允许使用基类指针指向派生类，并通过基类指针访问派生�
 * 如果客户需要对某个操作函数运行期间抛出的异常做出反应，那么class应该提供一个普通函数（而非在析构函数中）执行该操作。
 
 
+#### 绝不在构造和析构过程中调用 virtual 函数
+
+如果基类的构造函数或者析构函数中调用了虚函数会出现什么情况？
+
+子类在构造时会先调用基类的构造函数，如果基类的构造函数中调用了虚函数，由于此时并没有调用子类的构造函数，所以虚函数不会下降至子类，而是调用基类的虚函数。这就会导致不明行为，如果基类构造函数调用的是纯虚函数的话，程序还会因为找不到纯虚函数的实现而导致连接出错。
+
+在基类的构造函数被执行期间，子类对象会被C++认为是基类类型（因为此时子类并没有被构造），所以调用虚函数时，C++会调用基类的虚函数。基类析构函数中调用虚函数的问题也是如此，在子类的析构过程中，总是先调用子类的析构函数，再调用基类的构造函数。当基类的构造函数被调用时，子类已经被析构，所以C++会认为该对象是基类类型，如果此时调用虚函数，则是调用基类的虚函数，而不是下降调用子类的虚函数。
+
+解决方法：
+
+将在基类中调用的虚函数改为非虚，并要求子类的构造函数传递必要信息给基类构造函数。
+
+```
+class Base
+{
+public:
+  Base(string& info)
+  {
+    func(info);               //non-virtual
+  }
+
+  void func(string& info);    //non-virtual
+};
+
+class Derived : public Base
+{
+public:
+  Derived(parameters)
+   : Base(createInfo(parameters))         
+  {}
+
+private:
+  static string createInfo(parameters);   //使用static函数，避免传递参数时与子类对象未构造的问题
+};
+```
+
+#### 令 operator= 返回一个 *this 的引用
+
+赋值是可以写成连锁形式的，比如：`x = y = z = 15` ，`=` 其实采用右结合律，所以刚才的式子也可以写成 `x = (y = (z = 15))` 。所以为了实现连锁赋值，你为class实现 `operator=` 时就应该返回一个 `*this` 的引用。例如：
+
+```
+class Widget
+{
+public:
+  Widget& operator=(const Widget& rhs)
+  {
+    ···
+    return *this;
+  }
+};
+```
+
+同样，例如 `operator+=` 等其他赋值相关运算都使用。这只是个协议，并无强制性。不过标准库提供的类型均遵守了这个协议。
+
+#### 在 operator= 中处理“自我赋值”
+
+当类中包含动态申请的资源时，自我赋值可能会掉入“在停止使用资源之前意外释放了它”的陷阱，例如：
+
+class Widget
+{
+  ···
+private:
+  Resource* ptr;   //指针，指向一个从heap分配而得的对象
+};
+
+Widget& Widget::operator=(const Widget& rhs)  //不安全的赋值
+{
+  delete ptr;                                 //释放当前的Resource
+  ptr = new Resource(*rhs.ptr);               //使用rhs的Resource副本
+  return *this;
+}
+
+如果使用上面的赋值操作实现自我赋值时，就会出现使用一个已经被释放的指针！
+
+解决办法：
+
+一、先进行 “证同测试”
+
+只需要在最前面添加上 `if(this == &rhs) return *this` 即可，如果是自我赋值则不做任何事。
+
+二、在复制ptr所指向的资源之前不要删除ptr
+
+```
+Widget& Widget::operator=(const Widget& rhs) 
+{
+  Resource* pp = ptr;                         //记住原先的ptr
+  ptr = new Resource(*rhs.ptr);               //令ptr指向rhs的Resource的一个副本
+  delete pp;                                  //删除原先的ptr
+  return *this;
+}
+```
+
+三、copy and swap
+
+class Widget
+{
+  ···
+  void swap(Widget& rhs);                     //交换*this和rhs的数据
+};
+
+Widget& Widget::operator=(const Widget& rhs)  //不安全的赋值
+{
+  Widget temp(rhs);                           //为rhs数据制作一份副本
+  swap(temp);                                 //交换*this数据和上述副本数据
+  return *this;
+}
+
+谨记：
+
+确保当对象自我赋值时 `operator=` 有自我良好行为。其中技术包括比较“来源对象”和“目标对象”的地址、精心周到的语句顺序、以及copy and swap。
+
+确定任何函数如果操作一个以上的对象，而其中多个对象是同一个对象时，其行为仍然正确。
