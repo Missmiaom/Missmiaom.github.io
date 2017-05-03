@@ -202,7 +202,7 @@ Widget& Widget::operator=(const Widget& rhs)  //不安全的赋值
 
 一、先进行 “证同测试”
 
-只需要在最前面添加上 `if(this == &rhs) return *this` 即可，如果是自我赋值则不做任何事。
+只需要在最前面添加上 `if(this == &rhs) return *this` 即可，如果是自我赋值则不做任何事。这种方式可以解决问题，但是自我赋值的几率非常低的时候，证同测试会带来效率上的下降。
 
 二、在复制ptr所指向的资源之前不要删除ptr
 
@@ -236,3 +236,48 @@ Widget& Widget::operator=(const Widget& rhs)  //不安全的赋值
 确保当对象自我赋值时 `operator=` 有自我良好行为。其中技术包括比较“来源对象”和“目标对象”的地址、精心周到的语句顺序、以及copy and swap。
 
 确定任何函数如果操作一个以上的对象，而其中多个对象是同一个对象时，其行为仍然正确。
+
+#### 复制对象时勿忘其每一个成分
+
+> Copy all parts of an object
+
+当你尝试显式地声明拷贝构造函数和拷贝复制操作符时，一定要记住复制每一个成分，否则会导致使用了不明确的行为，并且这样做不会引起编译器报错。
+
+同样，在子类中显示声明拷贝构造函数和拷贝复制操作符时，也必须拷贝父类中的成员，即调用父类的拷贝复制操作符进行父类成员的拷贝。例如：
+
+```
+class Base
+{
+public:
+    ···
+    Base& operator=Base(const Base& rhs){}
+};
+class Derived : public Base
+{
+public:
+    ···
+    Derived& Derived::operator=(const Derived& rhs)
+    {
+        // 防止自赋值
+        if(this == &rhs)
+            return *this;
+
+        // 调用父类赋值操作符的第一种方法
+        Base::operator=(rhs);
+
+        // 调用父类赋值操作符的第二种方法，对*this的Base部分赋值
+        static_cast<Base&>(*this) = rhs;
+
+        // 子类成员赋值
+        ···
+
+        return *this;
+    }
+}
+```
+
+谨记：
+
+* 拷贝函数应该确保复制 **对象内的所有成员变量** 以及 **所有父类成员**
+
+* 不要尝试以某个拷贝函数实现另一个拷贝函数，应该讲共同的代码放进第三个函数中，由两个拷贝函数共同调用。
