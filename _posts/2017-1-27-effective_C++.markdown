@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Effective C++ 读书笔记"
-subtitle:   " \"bat\""
+subtitle:   " \"Effective C++\""
 date:       2016-12-19
 author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
@@ -14,6 +14,8 @@ tags:
 ### 让自己习惯C++
 
 #### 尽量以 const，enum，inline 替换 #define
+
+> Prefer consts,enums, and inlines to #define
 
 使用 `#define` 定义常量时（`#define PI 3.14`），编译器在预处理阶段即将常量名（PI）替换为常量值（3.14），而不是将常量名（PI）放入符号表中。当运用此常量如果获得一个编译错误，错误信息中提到的是常量值（3.14）而不是常量名（PI），这会浪费因为追踪它而花费的时间。而使用 `const` 定义常量时则不会出现上述情况。
 
@@ -45,6 +47,8 @@ CALL_WITH_MAX(++a, b+10);          //a被累加一次，a的递增次数不确�
 
 #### 尽可能使用 const
 
+> Use const whenever possible
+
 ```
 char* p = "Hello";              //non-const pointer, non-const data
 const char* p = "Hello"         //non-const pointer, const data
@@ -53,6 +57,8 @@ const char* const p = "Hello"   //const pointer, const data
 ```
 
 #### 确定对象被使用前已先被初始化
+
+> Make sure that objects are initialized before they're used
 
 谨记：
 
@@ -66,6 +72,8 @@ const char* const p = "Hello"   //const pointer, const data
 
 #### C++隐式声明的函数
 
+> Know what functions C++ silently writes and calls
+
 当一个类没有显式地声明 *构造函数*，*copy构造函数*，*copy assignment操作符* 和 *析构函数* 任意一个或几个时，编译器会隐式地为其生成相应 **公有的** **非虚** 函数。
 
 那么，编译器所隐式声明的函数做了什么呢？
@@ -77,6 +85,8 @@ const char* const p = "Hello"   //const pointer, const data
  另外，当一个类的 *copy assignment操作符* 声明为 private 时，编译器不会为其所有子类隐式声明 *copy assignment操作符* ，因为编译器无权调用基类的 *copy assignment操作符*。
 
 #### 拒绝C++隐式声明的拷贝构造函数和赋值操作符
+
+> Explicitly disallow the use of compiler-generated functions you do not want
 
 当一个类的设计初衷就是禁止拷贝的话，C++隐式声明的 *copy构造函数*，*copy assignment操作符* 函数将会违背初衷。
 
@@ -105,6 +115,8 @@ const char* const p = "Hello"   //const pointer, const data
 
 #### 为多态基类声明 virtual 析构函数
 
+> Declare destructors virtual in polymorphic base classes
+
 C++ 允许使用基类指针指向派生类，并通过基类指针访问派生类中的函数，典型的例子便是factory（工厂）模式。如果指针由 `new` 在 heap 上动态生成的话，必须使用 `delete` 去释放动态生成的空间，否则很可能造成内存泄漏。
 
 派生类被释放时，总是先调用最下层派生类的析构函数，然后从下往上依次调用各个基类的析构函数。使用指向派生类的 **基类指针** ，当其被释放时，首先调用的是基类的析构函数。所以，如果基类的析构函数是 **非虚** （non-virtual）的话，**子类的析构函数将不会被调用，即子类的成员将不会被释放从而导致内存泄漏。**
@@ -117,6 +129,8 @@ C++ 允许使用基类指针指向派生类，并通过基类指针访问派生�
 
 #### 析构函数不要抛出异常
 
+> Prevent exceptions from leaving destructors
+
 谨记：
 
 * 析构函数绝对不要吐出异常。如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕获异常，然后吞下它们（不传播）或结束程序
@@ -125,6 +139,8 @@ C++ 允许使用基类指针指向派生类，并通过基类指针访问派生�
 
 
 #### 绝不在构造和析构过程中调用 virtual 函数
+
+> Never call virtual functions during construction or destruction
 
 如果基类的构造函数或者析构函数中调用了虚函数会出现什么情况？
 
@@ -162,6 +178,8 @@ private:
 
 #### 令 operator= 返回一个 *this 的引用
 
+> Have assignment operators return a reference to *this
+
 赋值是可以写成连锁形式的，比如：`x = y = z = 15` ，`=` 其实采用右结合律，所以刚才的式子也可以写成 `x = (y = (z = 15))` 。所以为了实现连锁赋值，你为class实现 `operator=` 时就应该返回一个 `*this` 的引用。例如：
 
 ```
@@ -179,6 +197,8 @@ public:
 同样，例如 `operator+=` 等其他赋值相关运算都使用。这只是个协议，并无强制性。不过标准库提供的类型均遵守了这个协议。
 
 #### 在 operator= 中处理“自我赋值”
+
+> Handle assignment to self in operator=
 
 当类中包含动态申请的资源时，自我赋值可能会掉入“在停止使用资源之前意外释放了它”的陷阱，例如：
 
@@ -281,3 +301,23 @@ public:
 * 拷贝函数应该确保复制 **对象内的所有成员变量** 以及 **所有父类成员**
 
 * 不要尝试以某个拷贝函数实现另一个拷贝函数，应该讲共同的代码放进第三个函数中，由两个拷贝函数共同调用。
+
+### 资源管理
+
+#### 以对象管理资源
+
+> Use objects to manage resources
+
+C++中常常会出现因为忘记释放动态申请的资源而导致内存泄漏的问题，问题的解决办法是引入一种以对象管理资源的概念，**RAII**。
+
+**RAII**：Resource Acquisition Is Initialization。字面上的意思是“资源获取即是初始化”。它有两个关键的想法：
+
+1. 获得资源后立刻放进管理对象内。我们可以在获取资源之后初始化某个管理对象，也可以拿来赋值某个管理对象。
+
+2. 管理对象运用析构函数确保资源被释放。不论控制流如何离开区块，一旦对象被销毁（例如对象离开作用域），其析构函数自然会被自动调用。所以将资源的释放放入管理对象的析构函数中，即可保证资源被释放。
+
+谨记：
+
+* 为防止资源泄漏，请使用RAII对象，它们在构造函数中获得资源并在析构函数中释放资源。
+
+* 两个常被是用的 RAII class 分别是 shared\_ptr 和 auto\_ptr 。前者通常是较优选择，因为其copy行为比较直观。如选择 auto\_ptr ，复制动作会使被复制的 ptr 指向 null。
