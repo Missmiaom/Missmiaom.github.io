@@ -321,3 +321,48 @@ C++中常常会出现因为忘记释放动态申请的资源而导致内存泄�
 * 为防止资源泄漏，请使用RAII对象，它们在构造函数中获得资源并在析构函数中释放资源。
 
 * 两个常被是用的 RAII class 分别是 shared\_ptr 和 auto\_ptr 。前者通常是较优选择，因为其copy行为比较直观。如选择 auto\_ptr ，复制动作会使被复制的 ptr 指向 null。
+
+#### 在资源管理类中小心 copying 行为
+
+auto\_ptr 和 shared\_ptr 适合管理 *heap-based* 资源上，即动态申请的资源，因为它们最终需要使用 `delete` 来释放资源。而针对于不是 *heap-based* 资源，就需要建立自己的资源管理类。比如：想建立一个 RAII 的互斥锁类，在类对象被构造时即上锁，在被析构时解锁。
+
+```
+class Lock{
+public:
+  explicit Lock(Mutex* pm)
+    : mutexPtr(pm)
+    { lock(mutexPtr); }         //获得资源（上锁）
+
+  ~Lock(){ unlock(mutexPtr); }  //释放资源（解锁）
+
+private:
+  Mutex *mutexPtr;
+};
+```
+
+当建立自己的资源管理类时，必须小心复制行为。有以下四种针对复制行为的解决办法：
+
+**禁止复制**：许多时候允许 RAII 对象被复制并不合理，所以可以将 copying 操作声明为 private 。
+
+**对底层资源使用“”引用计数法**：有时候我们希望自己建立的管理类能够像 shared\_ptr 一样当它最后一个使用者被销毁时自动释放资源。 但是 shared\_ptr 的缺省行为是“引用次数为0时删除其所指物”，上面的例子中，我们需要的是解除锁定而不是删除。
+
+shared\_ptr 在构造时可以传入一个函数作为删除操作，如果缺省即为 `delete` 操作，我们可以传入指定的删除操作来达到目的。
+
+```
+class Lock{
+public:
+  explicit Lock(Mutex* pm)
+    : mutexPtr(pm, **unlock**)        //以unlock函数为删除操作  
+    { lock(mutexPtr.get()); }         //获得资源（上锁）
+
+private:
+  **shared_ptr<Mutex>** mutexPtr;     //以 shared\_ptr 替换纯指针
+};
+```
+
+注意，此例中 Lock 类不需要再声明析构函数，因为当 mutexPtr 的引用计数为0时，会自动调用 unlock 来解除锁定，这样也使得 Lock 类可以被安全地复制。
+
+**复制底部资源**：即使用深度拷贝复制一个一模一样的副本，这样只要管理类在被析构时确保资源得到释放，即可保证每个副本资源的安全释放。
+
+**转移底部资源的拥有权**：在某些特殊的场合你可能希望永远只有一个 RAII 对象指向一个资源，如果 RAII 对象被复制时，资源的拥有权会从被源对象转移到目标对象。这即是 auto\_ptr 奉行的复制意义。
+
