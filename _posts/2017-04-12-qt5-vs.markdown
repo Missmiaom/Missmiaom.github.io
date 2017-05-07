@@ -1,13 +1,13 @@
 ---
 layout:     post
 title:      "Qt5+VS2015开发之基础"
-subtitle:   " \"Design Pattern\""
+subtitle:   " \"Qt5\""
 date:       2017-4-12
 author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
-    - Qt
+    - Qt5
 ---
 
 > 本文主要介绍使用VS2015开发QT5项目的方法，以及创建简单的窗体和信号槽。

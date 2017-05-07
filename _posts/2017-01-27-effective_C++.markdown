@@ -352,11 +352,11 @@ shared\_ptr 在构造时可以传入一个函数作为删除操作，如果缺�
 class Lock{
 public:
   explicit Lock(Mutex* pm)
-    : mutexPtr(pm, **unlock**)        //以unlock函数为删除操作  
-    { lock(mutexPtr.get()); }         //获得资源（上锁）
+    : mutexPtr(pm, unlock)        //以unlock函数为删除操作  
+    { lock(mutexPtr.get()); }     //获得资源（上锁）
 
 private:
-  **shared_ptr<Mutex>** mutexPtr;     //以 shared\_ptr 替换纯指针
+  shared_ptr<Mutex> mutexPtr;     //以 shared_ptr 替换纯指针
 };
 ```
 
