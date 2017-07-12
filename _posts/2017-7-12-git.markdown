@@ -1,0 +1,84 @@
+---
+layout:     post
+title:      "Git使用记录"
+subtitle:   " \"git\""
+date:       2017-4-12
+author:     "leiyiming"
+header-img: "img/post-bg-2015.jpg"
+catalog: true
+tags:
+    - Git
+---
+
+> 记录Git常用功能
+
+### 基本命令
+
+`$ git init`		将目录变成Git可管理的仓库
+
+`$ git add <filename>`		把文件添加到仓库
+
+`$ git commit -m "***"`		提交所有更改，附加本次提交的说明
+
+`$ git status`		查看当前仓库有哪些改动
+
+`$ git diff <filename>`		查看文件的改动
+
+`$ git log`			查看提交记录，`--pretty=oneline` 参数表示只看版本号和提交说明
+
+`$ git reset --hard HEAD^`	回退到上一个版本，`HEAD^` 表示上一个版本，`HEAD~100` 表示上100个版本
+
+`$ git reset --hard commitid`	根据版本号回退
+
+`$ git reflog`		查看历史命令
+
+`$ git checkout -- <filename>`	撤销修改回到最近一次 `git commit` 或 `git add` 时的状态
+
+`$ git rm <filename>`		删除文件
+
+### 名词概念
+
+**工作区**：Git仓库的文件目录
+
+**版本库**：工作区中隐藏的文件目录 `.git` ，其中 `index` 是暂存区，还有Git为我们自动创建的第一个分支 `master`，以及指向 `master` 的一个指针叫 `HEAD`
+
+`git add` 实际上就是把文件修改添加到暂存区；
+
+`git commit` 实际上就是把暂存区的所有内容提交到当前分支
+
+它们的关系如下图：
+
+<img src="https://leiyiming.com/img/in-post/post-git/1.jpg"/>
+
+### 分支管理
+
+`$ git checkout -b <branch>`			创建并切换到分支，`-b` 表示创建并切换
+
+`$ git branch`							查看当前分支
+
+`$ git checkout <branch>`				切换到某个分支
+
+`$ git merge <branch>`					合并分支到 `master` 分支上
+
+`$ git branch -d <branch>`				删除分支，`-D` 强行删除
+
+`$ git log --graph`						查看分支合并图，当分支有冲突时会无法合并分支
+
+`$ git stash`							保存分支当前状态
+
+`$ git stash pop`						恢复保存的状态并删除stash内容
+
+`$ git stash list`						查看stash内容
+
+### 远程仓库
+
+`$ git clone <address> <dict>`			克隆远程库到本地目录
+
+`$ git remote -v`						查看远程仓库信息，远程仓库默认的名称是 `origin`
+
+`$ git remote add origin <address>`		关联远程库
+
+`$ git push -u origin master`			第一次将本地所有内容推送到远程库上
+
+`$ git push origin <branch>`			提交本地 `master` 分支的最新修改至远程库的一个分支上
+
