@@ -48,7 +48,7 @@ tags:
 
 它们的关系如下图：
 
-<img src="https://leiyiming.com/img/in-post/post-git/1.jpg"/>
+<img src="leiyiming.com/img/in-post/post-git/1.jpg"/>
 
 ### 分支管理
 
