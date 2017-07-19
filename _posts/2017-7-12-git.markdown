@@ -48,6 +48,8 @@ tags:
 
 它们的关系如下图：
 
+![概念图](leiyiming.com/img/in-post/post-git/1.jpg)
+
 <img src="leiyiming.com/img/in-post/post-git/1.jpg"/>
 
 ### 分支管理
@@ -72,13 +74,11 @@ tags:
 
 ### 远程仓库
 
-`$ git clone <address> <dict>`			克隆远程库到本地目录
+`$ git clone [-b <remote-branch>] <address> <dict>`			克隆远程库(的某一个分支)到本地目录
 
 `$ git remote -v`						查看远程仓库信息，远程仓库默认的名称是 `origin`
 
 `$ git remote add origin <address>`		关联远程库
 
-`$ git push -u origin master`			第一次将本地所有内容推送到远程库上
-
-`$ git push origin <branch>`			提交本地 `master` 分支的最新修改至远程库的一个分支上
+`$ git push origin <local-branch>:<remote-brance>`			提交本地某个分支至远程库的一个分支上，如果冒号前为空的话，就会删除分号后面的远程仓库的分支！（相当于push了空内容到远程分支上）
 
