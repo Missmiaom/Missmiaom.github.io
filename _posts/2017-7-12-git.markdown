@@ -48,7 +48,7 @@ tags:
 
 它们的关系如下图：
 
-![概念图](http://leiyiming.com/2017/04/12/git/leiyiming.com/img/in-post/post-git/1.jpg)
+![概念图](http://leiyiming.com/img/in-post/post-git/1.jpg)
 
 ### 分支管理
 
@@ -79,4 +79,14 @@ tags:
 `$ git remote add origin <address>`		关联远程库
 
 `$ git push origin <local-branch>:<remote-brance>`			提交本地某个分支至远程库的一个分支上，如果冒号前为空的话，就会删除分号后面的远程仓库的分支！（相当于push了空内容到远程分支上）
+
+#### 从远程仓库拉取更新
+
+`$ git fetch origin master:temp`		将远程仓库master分支下载到本地temp分支
+
+`$ git diff temp`						比较本地仓库与temp分支的区别
+
+`$ git merge temp`					如果没有问题就合并两个分支
+
+`$ git branch -d temp`				删除temp分支
 

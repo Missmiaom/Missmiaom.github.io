@@ -39,7 +39,7 @@ tags:
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/singleton.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/singleton.png"/>
 
 #### Simple Factory Pattern
 
@@ -57,7 +57,7 @@ tags:
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/simplefactory.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/simplefactory.png"/>
 
 #### Factory Method Pattern
 
@@ -77,7 +77,7 @@ tags:
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/factorymethod.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/factorymethod.png"/>
 
 #### Prototype Pattern
 
@@ -95,7 +95,7 @@ tags:
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/prorotype.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/prorotype.png"/>
 
 #### Builder Pattern
 
@@ -124,7 +124,7 @@ tags:
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/builder.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/builder.png"/>
 
 #### Abstract Factory Pattern
 
@@ -158,7 +158,7 @@ tags:
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/abstractfactory.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/abstractfactory.png"/>
 
 ### 结构型模式
 
@@ -188,7 +188,7 @@ tags:
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/adapter.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/adapter.png"/>
 
 #### Bridge Pattern
 
@@ -217,7 +217,7 @@ tags:
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/bridge.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/bridge.png"/>
 
 #### Decorator Pattern
 
@@ -248,7 +248,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/decorator.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/decorator.png"/>
 
 #### Composite Pattern
 
@@ -274,7 +274,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/composite.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/composite.png"/>
 
 #### Flyweight Pattern
 
@@ -304,7 +304,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/flyweight.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/flyweight.png"/>
 
 #### Facade Pattern
 
@@ -328,7 +328,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/facade.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/facade.png"/>
 
 
 #### Proxy Pattern
@@ -347,7 +347,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/proxy.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/proxy.png"/>
 
 ### 行为型模式
 
@@ -373,7 +373,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/state.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/state.png"/>
 
 #### Observer Pattern
 
@@ -399,7 +399,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/observer.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/observer.png"/>
 
 #### Mediator Pattern
 
@@ -433,7 +433,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/mediator.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/mediator.png"/>
 
 #### Chain of Responsibility Pattern
 
@@ -457,7 +457,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/chainofresponsibility.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/chainofresponsibility.png"/>
 
 #### Strategy Pattern
 
@@ -485,7 +485,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/strategy.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/strategy.png"/>
 
 #### Iterator Pattern
 
@@ -513,7 +513,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/iterator.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/iterator.png"/>
 
 #### Template Method
 
@@ -537,7 +537,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/temple.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/temple.png"/>
 
 #### Visitor Pattern
 
@@ -565,7 +565,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/visitor.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/visitor.png"/>
 
 
 #### Command Pattern
@@ -596,7 +596,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/command.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/command.png"/>
 
 #### Memento Pattern
 
@@ -620,7 +620,7 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/memento.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/memento.png"/>
 
 #### Interpreter Pattern
 
@@ -650,4 +650,4 @@ Decorator 继承 Component 导致了 ConcreteDecorator 可以相互间嵌套包�
 
 模式UML图：
 
-<img src="https://leiyiming.com/img/in-post/post-designpattern/interpreter.png"/>
+<img src="http://leiyiming.com/img/in-post/post-designpattern/interpreter.png"/>
