@@ -25,7 +25,7 @@ fstream          //文件读写流，对打开的文件可进行读写操作
 
 他们和其他流类之间的派生关系如下：
 
-<img src="https://leiyiming.com/img/in-post/post-c++/filestream/1.png"/>
+<img src="http://leiyiming.com/img/in-post/post-c++/filestream/1.png"/>
 
 
 #### 打开、关闭文件
@@ -37,16 +37,16 @@ fstream          //文件读写流，对打开的文件可进行读写操作
 * *filename* ：操作文件名。
 * *mode* ：打开文件方式，有如下几种，并且能够以“或”运算 `|` 的方式进行组合使用
 
-|选项|意义|
-|:---:|:---:|
-|ios_base::in|为输入(读)而打开文件|
-|ios_base::out|为输出(写)而打开文件|
-|ios_base::ate|初始位置：文件尾|
-|ios_base::app|所有输出附加在文件末尾|
-|ios_base::trunc|如果文件已存在则清楚该文件内容|
-|ios::nocreate|文件不存在时产生错误，常和in或app联合使用|
-|ios::noreplace|文件存在时产生错误，常和out联合使用|
-|ios_base::binary|以二进制格式打开（默认为文本格式）|
+|        选项        |           意义            |
+| :--------------: | :---------------------: |
+|   ios_base::in   |       为输入(读)而打开文件       |
+|  ios_base::out   |       为输出(写)而打开文件       |
+|  ios_base::ate   |        初始位置：文件尾         |
+|  ios_base::app   |       所有输出附加在文件末尾       |
+| ios_base::trunc  |      如果文件已存在则覆盖写入       |
+|  ios::nocreate   | 文件不存在时产生错误，常和in或app联合使用 |
+|  ios::noreplace  |   文件存在时产生错误，常和out联合使用   |
+| ios_base::binary |    以二进制格式打开（默认为文本格式）    |
 
 检测文件是否正确打开可以使用 `is_open()` 函数：
 
@@ -65,11 +65,11 @@ if(file.is_open())
 
 参照位置有以下三种：
 
-|指针|意义|
-|:---:|:---:|
-|ios_base::beg|beginning of the stream|
-|ios_base::cur|current position in the stream|
-|ios_base::end|nd of the stream|
+|      指针       |               意义               |
+| :-----------: | :----------------------------: |
+| ios_base::beg |    beginning of the stream     |
+| ios_base::cur | current position in the stream |
+| ios_base::end |       end of the stream        |
 
 可以使用以下函数来操作文件指针：
 
@@ -119,33 +119,47 @@ while(fin.get(a, 80, '\0')!=NULL) //以 '\0' 为终止
 
 `ofstream` 可以通过 `put(char c)` 成员函数来写入一个字符，也可以通过 ` write (const char* s, int n)` 写入多个字符。
 
+#### 一次性将文件内容读入char*中
+
+```C++
+    std::ifstream fin(imagePath, std::ios::in | std::ios::binary);
+    if (fin.is_open())
+    {
+        std::istreambuf_iterator<char> beg(fin), end;
+        _image = std::string(beg, end);
+        fin.close();
+    }
+```
+
+
+
 ### 字符串、数字类型转换
 
 #### string --> char *
 
-```
+```C++
 string str("OK");
 char * p = str.c_str();
 ```
 
 #### char * -->string
 
-```
+```C++
 char *p = "OK";
 string str(p);
 ```
 
 #### string --> int, long, double
 
-```
+```C++
 int a = atoi(s.c_str());
-long a = atol(s.c_str());
-double d=atof(s.c_str());
+long l = atol(s.c_str());
+double d = atof(s.c_str());
 ```
 
-#### int, float --> string
+#### int, long, float, double --> string
 
-```
+```C++
 string to_string (int val);
 string to_string (long val);
 string to_string (long long val);
@@ -157,7 +171,7 @@ string to_string (double val);
 string to_string (long double val);
 ```
 
-#### 转换字符串表示的不同进制数字
+#### 将字符串按不同进制转换为数字
 
 ```
 long int strtol(const char *nptr, char **endptr, int base)
