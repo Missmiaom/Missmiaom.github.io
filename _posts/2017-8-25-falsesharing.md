@@ -1,4 +1,14 @@
-# 伪共享分析以及volatile与缓存行填充的应用
+---
+layout:     post
+title:      "伪共享分析以及volatile与缓存行填充的应用"
+subtitle:   " \"git\""
+date:       2017-4-12
+author:     "leiyiming"
+header-img: "img/post-bg-2015.jpg"
+catalog: true
+tags:
+    - false shareing
+---
 
 ## CPU Cache
 
@@ -12,7 +22,7 @@
 
 **Cache Line**可以理解为CPU Cache中最小的缓存单位。当CPU需要访问主存中的某个数据时，会将其所在的Cache Line大小的数据全部读入Cache中。目前主流的CPU Cache的Cache Line大小都是 **64Bytes**。比如，如果你访问一个long数组，当数组中的一个值被加载到缓存中，它会额外加载另外7个。
 
-![CacheLines](C:\Users\CC000033\Desktop\新建文件夹\CacheLines.png)
+![缓存行](http://leiyiming.com/img/in-post/post-falsesharing/1.png)
 
 利用Cache Line的原理，我们可以非常快速的遍历数组中的数据。如果使用的数据结构在内存中不是物理上的相邻的话（链表），将得不到免费缓存加载所带来的优势。
 
@@ -73,11 +83,11 @@ private:
 
 bool 类型的成员变量\_loop初始值为treu，ThreadOne当\_loop为true时阻塞。ThreadTwo等待500ms之后，将_loop的值改为false。在VS2015 Release模式下，ThreadOne并不会跳出循环：
 
-![1503629028(1)](C:\Users\CC000033\Desktop\新建文件夹\1503629028(1).jpg)
+![测试结果](http://leiyiming.com/img/in-post/post-falsesharing/2.png)
 
 但是，将_loop加上volatile关键字之后，同样在VS2015 Release模式下，ThreadOne就会正常地跳出循环：
 
-![1503629186(1)](C:\Users\CC000033\Desktop\新建文件夹\1503629186(1).jpg)
+![测试结果](http://leiyiming.com/img/in-post/post-falsesharing/3.png)
 
 所以在多线程编程中，对于需要共享的变量最好在其声明之前加上**volatile**修饰符，以避免编译器的过度优化造成Bug。
 
@@ -93,7 +103,7 @@ Cache Line的免费加载让CPU访问数据的效率得到了极大地提高，�
 
 如下图所示，当线程1需要访问数组中的head元素，CPU Core1会将主存中其所在的缓存行加载到Cache中，这意味着Core1免费加载了tail元素。同理，线程二需要访问数组中的tail元素，Core2也同时加载了head元素。
 
-![FalseSharing](C:\Users\CC000033\Desktop\新建文件夹\FalseSharing.png)
+![伪共享](http://leiyiming.com/img/in-post/post-falsesharing/4.png)
 
 请注意，Cache的操作单位是整个缓存行。所以，当线程1更改了head的值时，**会使其他所有存储head的缓存行都失效**，因为其他缓存行中的head不是最新值了，当线程2想访问同一个缓存行中的tail时，Core2**必须重新从主存中加载该缓存行**。这就意味着，线程2被一个和它毫无关系的变量导致的**Cache未命中**给拖慢了。
 
@@ -200,7 +210,7 @@ private:
 
 **NormalNumberTest** 和 **PaddingNumberTest** 都有两个线程，分别操作一千万此普通数和填充数中不相关的A和B，分别各自计算两个线程运行完毕所用的时间。在VS2015 Release模式测试结果如下：
 
-
+![测试结果](http://leiyiming.com/img/in-post/post-falsesharing/5.png)
 
 可以看出伪共享对性能的影响是非常大的。
 
