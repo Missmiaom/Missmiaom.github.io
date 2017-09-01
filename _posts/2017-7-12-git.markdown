@@ -16,7 +16,9 @@ tags:
 
 `$ git init`		将目录变成Git可管理的仓库
 
-`$ git add <filename>`		把文件添加到仓库
+`$ git add <filename>`		把文件添加到索引库
+
+`$ git add -u`		添加修改的文件到索引库
 
 `$ git commit -m "***"`		提交所有更改，附加本次提交的说明
 
