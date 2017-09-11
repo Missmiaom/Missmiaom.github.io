@@ -92,3 +92,8 @@ tags:
 
 `$ git branch -d temp`				删除temp分支
 
+### 子模块
+
+`git submodule add <addr> <path>` 	向工程中添加地址为\<addr\>的模块到\<path\>文件夹中
+
+`git submodule update --init --recursive`		在工程中递归初始化子模块
