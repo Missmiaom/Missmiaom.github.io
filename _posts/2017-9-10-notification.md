@@ -28,7 +28,7 @@ tags:
 5. Notifications 支持消息继承，Events 不支持。
 
 
-![对比](http://leiyiming.com/img/in-post/post-poco/notification/1.png)
+![对比](http://leiyiming.com/img/in-post/post-poco/notification/1.jpg)
 
 ## Notifications
 
