@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Poco 之 Notifications & Events"
-subtitle:   " \"git\""
+subtitle:   " \"notification\""
 date:       2017-9-10
 author:     "leiyiming"
 header-img: "img/post-bg-2015.jpg"
