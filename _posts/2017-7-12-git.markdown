@@ -94,6 +94,18 @@ tags:
 
 ### 子模块
 
-`git submodule add <addr> <path>` 	向工程中添加地址为\<addr\>的模块到\<path\>文件夹中
+`$ git submodule add <addr> <path>` 	向工程中添加地址为\<addr\>的模块到\<path\>文件夹中
 
-`git submodule update --init --recursive`		在工程中递归初始化子模块
+`$ git submodule update --init --recursive`		在工程中递归初始化子模块
+
+`$ git rm --cached [path]` 	根据路径删除子模块。（后续需要在 .gitmodules 和 .git/config 文件中删除相关配置，并且需要删除子模块文件夹）
+
+### 回滚
+
+`$ git log`	查看提交历史，找到要回滚版本的commit id
+
+`$ git reset --soft ${commit-id}`：	回滚某个版本，`--soft`表示保留修改记录，`--hard`表示不保留修改记录
+
+`$ git stash`	暂存修改
+
+`$ git push -f`	强制覆盖
