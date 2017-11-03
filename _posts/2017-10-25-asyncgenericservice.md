@@ -43,7 +43,7 @@ class GreeterCallData : public CallData
 public:
     GreeterCallData(std::shared_ptr<Greeter::AsyncService> service,
     				std::shared_ptr<ServerCompletionQueue> cq)
-        : _service(service), _cq(cq), responder_(&ctx_)
+        : _service(service), _cq(cq), _responder(&_ctx)
     {
         Proceed();
     }
@@ -53,17 +53,17 @@ public:
         if (_status == CREATE)
         {
             _status = PROCESS;
-            _service->RequestSayHello(&ctx_, &request_, &responder_, _cq.get(), _cq.get(), this);
+            _service->RequestSayHello(&_ctx, &_request, &_responder, _cq.get(), _cq.get(), this);
         }
         else if (_status == PROCESS)
         {
             new GreeterCallData(_service, _cq);
 
             std::string prefix("Hello ");
-            reply_.set_message(prefix + request_.name());
+            _reply.set_message(prefix + _request.name());
 
             _status = FINISH;
-            responder_.Finish(reply_, Status::OK, this);
+            _responder.Finish(_reply, Status::OK, this);
         }
         else
         {
@@ -72,11 +72,11 @@ public:
         }
     }
 private:
-    ServerContext ctx_;
-    HelloRequest request_;
-    HelloReply reply_;
+    ServerContext _ctx;
+    HelloRequest _request;
+    HelloReply _reply;
 
-    ServerAsyncResponseWriter<HelloReply> responder_;
+    ServerAsyncResponseWriter<HelloReply> _responder;
 
     std::shared_ptr<ServerCompletionQueue>  _cq;
     std::shared_ptr<Greeter::AsyncService>  _service;
