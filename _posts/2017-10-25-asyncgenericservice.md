@@ -101,6 +101,8 @@ void HandleRpcs()
 4. 当有可写通知时，进入 `FINISH` 分支。此时，响应和状态码已经发送出去，可以删除对象来释放空间，至此GreeterCallData 整个的生存周期结束。
 
 
+![1](http://leiyiming.com/img/in-post/post-grpc/1.png)
+
 
 ### AsyncGenericService 用法
 
