@@ -13,7 +13,11 @@ tags:
 
 > AsyncGenericService 可以忽略特定的服务，接受任意的客户端请求，并做相应处理发送对应的响应。当有特定服务监听请求时，客户端的请求会被送到指定的服务，如果客户端的请求没有特定的服务监听，则均会被送到 AsyncGenericService 。
 
-### 异步服务的常规用法
+
+
+## 异步服务的常规用法
+
+---
 
 ```C++
 class CallData
@@ -104,7 +108,10 @@ void HandleRpcs()
 ![1](http://leiyiming.com/img/in-post/post-grpc/1.png)
 
 
-### AsyncGenericService 用法
+
+## AsyncGenericService 用法
+
+---
 
 ```C++
 class GenericCallData : public CallData
@@ -175,7 +182,39 @@ AsyncGenericService 的用法和特定的 AsyncService 用法逻辑相同，不�
 5. 通过 GenericServerContext 的 `method()` 方法，可以获得该请求需要调用的服务名，服务端可以根据这个信息来将 ByteBuffer 反序列化为对应服务的请求。
 6. 这里使用了多态的特性，当声明多个服务时，通过 tag 传入自身的指针，然后通过父类指针调用 Proceed 函数，进行相对应的处理。
 
-### 客户端调用
+### ByteBuffer 和 Message 的相互转换
+
+```C++
+//从 ByteBuffer 中解析 Message
+bool ParseFromByteBuffer(grpc::ByteBuffer* buffer, grpc::protobuf::Message* message)
+{
+    std::vector<grpc::Slice> slices;
+    (void)buffer->Dump(&slices);
+    grpc::string buf;
+    buf.reserve(buffer->Length());
+    for (auto s = slices.begin(); s != slices.end(); s++)
+    {
+        buf.append(reinterpret_cast<const char*>(s->begin()), s->size());
+    }
+    return message->ParseFromString(buf);
+}
+
+//将 Message 序列化为 ByteBuffer
+std::unique_ptr<grpc::ByteBuffer> SerializeToByteBuffer(
+    grpc::protobuf::Message* message)
+{
+    grpc::string buf;
+    message->SerializeToString(&buf);
+    grpc::Slice slice(buf);
+    return std::unique_ptr<grpc::ByteBuffer>(new grpc::ByteBuffer(&slice, 1));
+}
+```
+
+
+
+## 客户端调用
+
+---
 
 客户端调用的方法和普通用法没有区别，可以同步也可以异步。
 
