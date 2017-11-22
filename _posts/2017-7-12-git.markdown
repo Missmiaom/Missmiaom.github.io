@@ -78,9 +78,13 @@ tags:
 
 `$ git remote -v`						查看远程仓库信息，远程仓库默认的名称是 `origin`
 
+#### 将本地仓库推送至远程仓库
+
 `$ git remote add origin <address>`		关联远程库
 
 `$ git push origin <local-branch>:<remote-brance>`			提交本地某个分支至远程库的一个分支上，如果冒号前为空的话，就会删除分号后面的远程仓库的分支！（相当于push了空内容到远程分支上）
+
+`$git remote remove origin`			取消远程仓库关联
 
 #### 从远程仓库拉取更新
 
