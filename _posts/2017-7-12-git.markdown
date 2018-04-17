@@ -113,3 +113,15 @@ tags:
 `$ git stash`	暂存修改
 
 `$ git push -f`	强制覆盖
+
+### cherry-pick
+
+`$ git checkout <dev>`    切换到开发分支
+
+`$ git cherry-pick <commit-id>`   选择特性分支某个需要合并的commit到开发分支上
+
+`$ git cherry-pick <start-commit-id>..<end-commit-id>`     选择多个commit，左开右闭区间
+
+`$ git cherry-pick <start-commit-id>^..<end-commit-id>`   选择多个commit，闭区间
+
+`$ git push`     推送
