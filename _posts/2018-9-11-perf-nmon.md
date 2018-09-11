@@ -1,5 +1,4 @@
-
-
+---
 layout:     post
 title:      "性能监控工具nmon & FlameGraph"
 subtitle:   " \"performance test\""
@@ -9,6 +8,7 @@ header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
     - Linux
+---
 
 ## nmon
 
