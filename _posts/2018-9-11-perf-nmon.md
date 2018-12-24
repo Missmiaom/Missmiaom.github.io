@@ -80,7 +80,7 @@ $ nmon -s1 -c120 -f -m .
 perf 是linux下用于记录程序运行情况的工具，能够监控堆栈以及各种软硬件事件。下面只记录简单用法
 
 ```shell
-$ perf record -e cpu-clock -g -p 1
+$ perf record --call-graph dwarf -e cpu-clock -a -g -p 1
 ```
 
 * -g：额外记录函数的调用关系
