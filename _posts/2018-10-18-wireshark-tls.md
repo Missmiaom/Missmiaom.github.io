@@ -25,13 +25,13 @@ tags:
 
 1.编辑 -> 首选项 ->  Protocols -> SSL。
 
-![](http://pbs8zp0hz.bkt.clouddn.com/blog/image/wireshak-tls/1.jpg)
+![](http://image.imagemiao.top/blog/image/wireshak-tls/1.jpg)
 
 选择 SSL debug file，点击browse.. 选择debug文件保存位置。随便新建一个空文件即可。这个文件中会记录wireshark解密相关的log，如果解密失败的话可以尝试查看该文件。
 
 2.RSA keys list -> edit.. 
 
-![](http://pbs8zp0hz.bkt.clouddn.com/blog/image/wireshak-tls/2.jpg)
+![](http://image.imagemiao.top/blog/image/wireshak-tls/2.jpg)
 
 * IP address：服务器ip
 * Port: 服务器TLS port
@@ -40,7 +40,7 @@ tags:
 
 3.设置完毕之后再进行抓包，会发现原本的 TLS 数据变为了 TCP数据，并且在原本的Secure Sockets Layer下还有一条标记的TCP数据，点击后便可以在数据框看到解密之后的数据了。
 
-![](http://pbs8zp0hz.bkt.clouddn.com/blog/image/wireshak-tls/3.jpg)
+![](http://image.imagemiao.top/blog/image/wireshak-tls/3.jpg)
 
 
 

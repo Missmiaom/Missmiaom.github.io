@@ -32,11 +32,11 @@ $ nmon
 
 会看到下面的显示：
 
-![](http://pbs8zp0hz.bkt.clouddn.com/18-9-11/45951018.jpg)
+![](http://image.imagemiao.top/18-9-11/45951018.jpg)
 
 下面的按键列表对应着实时显示的系统资源情况，例如，按 `c` 会显示CPU使用情况，按 `m` 会显示内存使用情况，支持多选。例如，选中CPU、Memory、Network，只需要按 `c` 、`m` 、`n`。
 
-![](http://pbs8zp0hz.bkt.clouddn.com/18-9-11/8445853.jpg)
+![](http://image.imagemiao.top/18-9-11/8445853.jpg)
 
 
 
@@ -48,7 +48,7 @@ $ nmon
 
 数据收集模式的详细帮助：
 
-![](http://pbs8zp0hz.bkt.clouddn.com/18-9-11/36478094.jpg)
+![](http://image.imagemiao.top/18-9-11/36478094.jpg)
 
 常用命令：
 
@@ -65,9 +65,9 @@ $ nmon -s1 -c120 -f -m .
 
 再用之前提到的解析工具进行解析，点击 nmon analyser v55.xlsm 中的`Analyze nmon data` ，选中刚刚生产的.nmon文件，即可绘制出图表。
 
-![](http://pbs8zp0hz.bkt.clouddn.com/18-9-11/87576967.jpg)
+![](http://image.imagemiao.top/18-9-11/87576967.jpg)
 
-![](http://pbs8zp0hz.bkt.clouddn.com/18-9-11/3370232.jpg)
+![](http://image.imagemiao.top/18-9-11/3370232.jpg)
 
 
 
@@ -127,7 +127,7 @@ perf script -i perf.data &> perf.unfold
 
 生成的火焰图如下：
 
-![](http://pbs8zp0hz.bkt.clouddn.com/18-9-11/71595103.jpg)
+![](http://image.imagemiao.top/18-9-11/71595103.jpg)
 
 从下至上代表函数调用层次，越宽代表占用CPU周期越多。格式是svg，点击某一个方块，可以放大显示其详细信息。
 
